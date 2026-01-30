@@ -2043,3 +2043,10 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* Answer letter styling for sample tests */
+.answer-letter {
+    font-weight: var(--font-weight-bold);
+    color: #8b5cf6;
+    margin-left: var(--space-sm);
+}

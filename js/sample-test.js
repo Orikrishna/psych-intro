@@ -21,6 +21,9 @@ class SampleTestApp {
             'wrong': { name: 'שאלות שטעיתי', count: null }
         };
 
+        // Hebrew letters for answer options
+        this.hebrewLetters = ['א', 'ב', 'ג', 'ד'];
+
         this.init();
     }
 
@@ -153,20 +156,17 @@ class SampleTestApp {
         // Show question
         document.getElementById('question-text').textContent = question.question;
 
-        // Show answers
+        // Show answers - keep original order with Hebrew letters
         const container = document.getElementById('answers-container');
         container.innerHTML = '';
 
-        // Shuffle answer indices for display
-        const answerIndices = question.answers.map((_, i) => i);
-        const shuffledIndices = this.shuffleArray([...answerIndices]);
-
-        shuffledIndices.forEach(originalIndex => {
+        // Display answers in original order (not shuffled) with Hebrew letters
+        question.answers.forEach((answer, index) => {
             const btn = document.createElement('button');
             btn.className = 'answer-btn';
-            btn.textContent = question.answers[originalIndex];
-            btn.dataset.index = originalIndex;
-            btn.addEventListener('click', () => this.selectAnswer(originalIndex));
+            btn.innerHTML = `<span class="answer-letter">${this.hebrewLetters[index]}.</span> ${answer}`;
+            btn.dataset.index = index;
+            btn.addEventListener('click', () => this.selectAnswer(index));
             container.appendChild(btn);
         });
 
