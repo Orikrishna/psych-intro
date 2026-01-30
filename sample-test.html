@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבחן לדוגמא - מבוא לפסיכולוגיה</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                חזרה לדף הבית
+            </a>
+            <h1>מבחן לדוגמא</h1>
+        </header>
+
+        <!-- Test Mode Selection View -->
+        <div id="mode-select-view" class="view active">
+            <div class="section-header">
+                <h2>בחר אורך מבחן</h2>
+                <p>בחר כמה שאלות תרצה לתרגל</p>
+            </div>
+
+            <div class="test-mode-grid">
+                <button class="test-mode-card" data-mode="short">
+                    <div class="test-mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>קצר</h3>
+                    <p>10 שאלות</p>
+                </button>
+
+                <button class="test-mode-card" data-mode="medium">
+                    <div class="test-mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>בינוני</h3>
+                    <p>30 שאלות</p>
+                </button>
+
+                <button class="test-mode-card" data-mode="long">
+                    <div class="test-mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>ארוך</h3>
+                    <p>50 שאלות</p>
+                </button>
+
+                <button class="test-mode-card" data-mode="all">
+                    <div class="test-mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>כל השאלות</h3>
+                    <p id="all-questions-count">90 שאלות</p>
+                </button>
+
+                <button class="test-mode-card" data-mode="wrong" id="wrong-mode-card">
+                    <div class="test-mode-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                    </div>
+                    <h3>שאלות שטעיתי</h3>
+                    <p><span id="wrong-count-display">0</span> שאלות</p>
+                </button>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h3>סטטיסטיקות מבחני דוגמא</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value" id="total-tests">0</span>
+                        <span class="stat-label">מבחנים שהושלמו</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="avg-score">0%</span>
+                        <span class="stat-label">ציון ממוצע</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="total-answered">0</span>
+                        <span class="stat-label">שאלות נענו</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz View -->
+        <div id="quiz-view" class="view">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <span id="test-mode-badge" class="lesson-badge">מבחן לדוגמא</span>
+                    <span id="question-counter" class="question-counter">שאלה 1 מתוך 10</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="quiz-content">
+                <div class="question-card">
+                    <h2 id="question-text" class="question-text"></h2>
+                    <div id="answers-container" class="answers-container">
+                        <!-- Answers will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div id="feedback-section" class="feedback-section hidden">
+                    <div id="feedback-message" class="feedback-message"></div>
+                    <button id="next-btn" class="btn btn-primary">
+                        שאלה הבאה
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l-7 7 7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results View -->
+        <div id="results-view" class="view">
+            <div class="results-card">
+                <div class="score-circle">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="score-bg" cx="50" cy="50" r="45"/>
+                        <circle id="score-ring" class="score-ring" cx="50" cy="50" r="45"/>
+                    </svg>
+                    <div class="score-text">
+                        <span id="final-score" class="score-value">0%</span>
+                        <span class="score-label">ציון</span>
+                    </div>
+                </div>
+
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <span class="result-icon correct">✓</span>
+                        <span id="correct-count">0</span>
+                        <span>תשובות נכונות</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-icon wrong">✗</span>
+                        <span id="wrong-count">0</span>
+                        <span>תשובות שגויות</span>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="retry-wrong-btn" class="btn btn-secondary hidden">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        תרגל שאלות שגויות בלבד
+                    </button>
+                    <button id="retry-all-btn" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        התחל מחדש
+                    </button>
+                    <button id="back-to-modes-btn" class="btn btn-outline">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        חזור לבחירת מבחן
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sample-test.js"></script>
+</body>
+</html>
