@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>כרטיסיות - מבוא לפסיכולוגיה</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                חזרה לדף הבית
+            </a>
+            <h1>כרטיסיות</h1>
+        </header>
+
+        <!-- Settings View -->
+        <div id="settings-view" class="view active">
+            <div class="section-header">
+                <h2>הגדרות לימוד</h2>
+                <p>בחר את אופן התצוגה</p>
+            </div>
+
+            <!-- Mode Toggle -->
+            <div class="settings-card">
+                <h3>מצב תצוגה</h3>
+                <div class="mode-toggle-group">
+                    <button id="mode-term-first" class="mode-btn active">
+                        <span class="mode-icon">📝</span>
+                        <span class="mode-title">מושג → הסבר</span>
+                        <span class="mode-desc">ראה את המושג, נסה להיזכר בהסבר</span>
+                    </button>
+                    <button id="mode-def-first" class="mode-btn">
+                        <span class="mode-icon">💡</span>
+                        <span class="mode-title">הסבר → מושג</span>
+                        <span class="mode-desc">ראה את ההסבר, נסה להיזכר במושג</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lesson Filter -->
+            <div class="settings-card">
+                <h3>סנן לפי שיעור</h3>
+                <div id="lesson-filter" class="lesson-filter">
+                    <button class="filter-btn active" data-lesson="all">הכל</button>
+                    <!-- Lesson buttons will be added dynamically -->
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="settings-card">
+                <h3>סטטיסטיקות</h3>
+                <div class="flashcard-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-cards">0</span>
+                        <span class="stat-label">סה"כ כרטיסיות</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="known-cards">0</span>
+                        <span class="stat-label">כרטיסיות שאני יודע/ת</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="remaining-cards">0</span>
+                        <span class="stat-label">נותרו ללמידה</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="settings-actions">
+                <button id="start-btn" class="btn btn-primary btn-lg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    התחל ללמוד
+                </button>
+                <button id="reset-known-btn" class="btn btn-outline">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 4v6h6M23 20v-6h-6"/>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                    </svg>
+                    איפוס "אני יודע/ת"
+                </button>
+            </div>
+        </div>
+
+        <!-- Study View -->
+        <div id="study-view" class="view">
+            <div class="study-header">
+                <div class="study-progress">
+                    <span id="card-counter">1 / 10</span>
+                    <div class="progress-bar">
+                        <div id="study-progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+                <button id="back-to-settings" class="btn btn-ghost">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    חזרה
+                </button>
+            </div>
+
+            <!-- Flashcard -->
+            <div class="flashcard-container">
+                <div id="flashcard" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div id="front-content" class="flashcard-content"></div>
+                            <div class="flashcard-hint">לחץ להפוך</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div id="back-content" class="flashcard-content"></div>
+                            <div id="video-link-container" class="video-link-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rating Controls -->
+            <div id="rating-controls" class="rating-controls hidden">
+                <p class="rating-prompt">כמה טוב זכרת?</p>
+                <div class="rating-buttons">
+                    <button class="rating-btn rating-again" data-rating="0">
+                        <span class="rating-icon">😕</span>
+                        <span class="rating-label">שוב</span>
+                    </button>
+                    <button class="rating-btn rating-hard" data-rating="1">
+                        <span class="rating-icon">😐</span>
+                        <span class="rating-label">קשה</span>
+                    </button>
+                    <button class="rating-btn rating-good" data-rating="2">
+                        <span class="rating-icon">🙂</span>
+                        <span class="rating-label">טוב</span>
+                    </button>
+                    <button class="rating-btn rating-easy" data-rating="3">
+                        <span class="rating-icon">😊</span>
+                        <span class="rating-label">קל</span>
+                    </button>
+                </div>
+                <button id="know-this-btn" class="btn btn-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    אני יודע/ת את זה - אל תציג שוב
+                </button>
+            </div>
+        </div>
+
+        <!-- Complete View -->
+        <div id="complete-view" class="view">
+            <div class="complete-card">
+                <div class="complete-icon">🎉</div>
+                <h2>כל הכבוד!</h2>
+                <p>סיימת את כל הכרטיסיות</p>
+
+                <div class="complete-stats">
+                    <div class="complete-stat">
+                        <span id="session-reviewed" class="stat-value">0</span>
+                        <span class="stat-label">כרטיסיות נלמדו</span>
+                    </div>
+                    <div class="complete-stat">
+                        <span id="session-known" class="stat-value">0</span>
+                        <span class="stat-label">סומנו כ"יודע/ת"</span>
+                    </div>
+                </div>
+
+                <div class="complete-actions">
+                    <button id="study-again-btn" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        למד שוב
+                    </button>
+                    <button id="back-to-settings-complete" class="btn btn-outline">
+                        חזור להגדרות
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/flashcards.js"></script>
+</body>
+</html>

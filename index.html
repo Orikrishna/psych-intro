@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבוא לפסיכולוגיה - אוניברסיטת תל אביב</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="container">
+                <div class="hero__content">
+                    <span class="hero__badge">אוניברסיטת תל אביב</span>
+                    <h1 class="heading-1 hero__title">מבוא למדעי הפסיכולוגיה</h1>
+                    <p class="hero__subtitle">
+                        פלטפורמת לימוד אינטראקטיבית עם חידונים וכרטיסיות
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main style="flex: 1; padding: var(--space-3xl) 0;">
+            <div class="container">
+                <!-- Pathway Cards -->
+                <div class="pathway-grid">
+                    <!-- Quiz Card -->
+                    <a href="quiz.html" class="pathway-card">
+                        <div class="pathway-card__icon">
+                            <svg viewBox="0 0 100 100" fill="none">
+                                <circle cx="50" cy="50" r="45" fill="#235524" opacity="0.1"/>
+                                <rect x="25" y="20" width="50" height="60" rx="4" fill="#ffffff" stroke="#235524" stroke-width="2"/>
+                                <path d="M35 35h30M35 45h20M35 55h25" stroke="#235524" stroke-width="3" stroke-linecap="round"/>
+                                <circle cx="65" cy="65" r="15" fill="#f6d045"/>
+                                <path d="M60 65l4 4 8-8" stroke="#235524" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h2 class="pathway-card__title">חידונים</h2>
+                        <p class="pathway-card__description">
+                            בחן את הידע שלך עם שאלות רב-ברירה מכל שיעורי הקורס
+                        </p>
+                        <div class="pathway-card__stats">
+                            <span class="stat">
+                                <span class="stat__number" id="quiz-count">270+</span>
+                                <span class="stat__label">שאלות</span>
+                            </span>
+                            <span class="stat">
+                                <span class="stat__number">9</span>
+                                <span class="stat__label">שיעורים</span>
+                            </span>
+                        </div>
+                        <span class="pathway-card__cta">התחל ללמוד ←</span>
+                    </a>
+
+                    <!-- Flashcards Card -->
+                    <a href="flashcards.html" class="pathway-card">
+                        <div class="pathway-card__icon">
+                            <svg viewBox="0 0 100 100" fill="none">
+                                <rect x="15" y="25" width="50" height="35" rx="4" fill="#1ba8a6" opacity="0.3" transform="rotate(-5 15 25)"/>
+                                <rect x="25" y="35" width="50" height="35" rx="4" fill="#235524" opacity="0.2" transform="rotate(3 25 35)"/>
+                                <rect x="20" y="30" width="50" height="35" rx="4" fill="#ffffff" stroke="#235524" stroke-width="2"/>
+                                <path d="M30 42h30M30 52h20" stroke="#235524" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <h2 class="pathway-card__title">כרטיסיות</h2>
+                        <p class="pathway-card__description">
+                            למד מושגים עם כרטיסיות וחזרה מרווחת (Spaced Repetition)
+                        </p>
+                        <div class="pathway-card__stats">
+                            <span class="stat">
+                                <span class="stat__number" id="flashcard-count">35</span>
+                                <span class="stat__label">כרטיסיות</span>
+                            </span>
+                            <span class="stat">
+                                <span class="stat__number">9</span>
+                                <span class="stat__label">שיעורים</span>
+                            </span>
+                        </div>
+                        <span class="pathway-card__cta">התחל ללמוד ←</span>
+                    </a>
+                </div>
+
+                <!-- Progress Overview -->
+                <section class="progress-overview card">
+                    <h3 class="heading-3">ההתקדמות שלך</h3>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <span class="progress-stat__value" id="lessons-completed">0</span>
+                            <span class="progress-stat__label">שיעורים הושלמו</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="progress-stat__value" id="total-score">0%</span>
+                            <span class="progress-stat__label">ממוצע ציונים</span>
+                        </div>
+                        <div class="progress-stat">
+                            <span class="progress-stat__value" id="cards-learned">0</span>
+                            <span class="progress-stat__label">כרטיסיות נלמדו</span>
+                        </div>
+                    </div>
+                    <button class="btn btn--secondary" id="reset-progress">איפוס התקדמות</button>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">מבוא למדעי הפסיכולוגיה - אוניברסיטת תל אביב</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/homepage.js"></script>
+</body>
+</html>
