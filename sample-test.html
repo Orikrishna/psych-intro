@@ -22,72 +22,50 @@
         <!-- Test Mode Selection View -->
         <div id="mode-select-view" class="view active">
             <div class="section-header">
-                <h2>בחר אורך מבחן</h2>
-                <p>בחר כמה שאלות תרצה לתרגל</p>
+                <h2>בחרי אורך מבחן</h2>
+                <p>כמה שאלות תרצי לתרגל?</p>
             </div>
 
             <div class="test-mode-grid">
-                <button class="test-mode-card" data-mode="short">
-                    <div class="test-mode-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
-                    <h3>קצר</h3>
-                    <p>10 שאלות</p>
+                <button class="test-mode-card test-mode-card--short" data-mode="short">
+                    <span class="test-mode-emoji">🐞</span>
+                    <h3>קצרצר</h3>
+                    <p class="test-mode-count">10 שאלות</p>
+                    <span class="test-mode-time">~5 דקות</span>
                 </button>
 
-                <button class="test-mode-card" data-mode="medium">
-                    <div class="test-mode-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
+                <button class="test-mode-card test-mode-card--medium" data-mode="medium">
+                    <span class="test-mode-emoji">🐇</span>
                     <h3>בינוני</h3>
-                    <p>30 שאלות</p>
+                    <p class="test-mode-count">30 שאלות</p>
+                    <span class="test-mode-time">~15 דקות</span>
                 </button>
 
-                <button class="test-mode-card" data-mode="long">
-                    <div class="test-mode-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                    </div>
+                <button class="test-mode-card test-mode-card--long" data-mode="long">
+                    <span class="test-mode-emoji">🦊</span>
                     <h3>ארוך</h3>
-                    <p>50 שאלות</p>
+                    <p class="test-mode-count">50 שאלות</p>
+                    <span class="test-mode-time">~25 דקות</span>
                 </button>
 
-                <button class="test-mode-card" data-mode="all">
-                    <div class="test-mode-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                        </svg>
-                    </div>
-                    <h3>כל השאלות</h3>
-                    <p id="all-questions-count">90 שאלות</p>
+                <button class="test-mode-card test-mode-card--all" data-mode="all">
+                    <span class="test-mode-emoji">🐘</span>
+                    <h3>מבחן מלא</h3>
+                    <p class="test-mode-count" id="all-questions-count">90 שאלות</p>
+                    <span class="test-mode-time">~45 דקות</span>
                 </button>
 
-                <button class="test-mode-card" data-mode="wrong" id="wrong-mode-card">
-                    <div class="test-mode-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 4v6h6M23 20v-6h-6"/>
-                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-                        </svg>
-                    </div>
-                    <h3>שאלות שטעיתי</h3>
-                    <p><span id="wrong-count-display">0</span> שאלות</p>
+                <button class="test-mode-card test-mode-card--wrong" data-mode="wrong" id="wrong-mode-card">
+                    <span class="test-mode-emoji">🤦‍♀️</span>
+                    <h3>רק מה שטעיתי</h3>
+                    <p class="test-mode-count"><span id="wrong-count-display">0</span> שאלות</p>
+                    <span class="test-mode-time">תרגול ממוקד</span>
                 </button>
             </div>
 
             <!-- Stats Section -->
             <div class="stats-section">
-                <h3>סטטיסטיקות מבחני דוגמא</h3>
+                <h3>הסטטיסטיקות שלי</h3>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <span class="stat-value" id="total-tests">0</span>
@@ -166,24 +144,13 @@
 
                 <div class="results-actions">
                     <button id="retry-wrong-btn" class="btn btn-secondary hidden">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 4v6h6M23 20v-6h-6"/>
-                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-                        </svg>
-                        תרגל שאלות שגויות בלבד
+                        🤦‍♀️ תרגלי שאלות שטעית בהן
                     </button>
                     <button id="retry-all-btn" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 4v6h6M23 20v-6h-6"/>
-                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-                        </svg>
-                        התחל מחדש
+                        🔄 התחילי מחדש
                     </button>
                     <button id="back-to-modes-btn" class="btn btn-outline">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        חזור לבחירת מבחן
+                        ← חזרי לבחירת מבחן
                     </button>
                 </div>
             </div>

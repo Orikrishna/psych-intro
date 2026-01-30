@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>סיכום - מבוא לפסיכולוגיה</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header summary-header">
+            <div class="container">
+                <div class="summary-header__nav">
+                    <a href="summaries.html" class="back-link">→ חזרה לסיכומים</a>
+                </div>
+                <div class="summary-header__title">
+                    <span class="summary-header__emoji" id="lesson-emoji"></span>
+                    <h1 id="lesson-title">טוען...</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main style="flex: 1; padding: var(--space-2xl) 0;">
+            <div class="container">
+                <!-- Loading State -->
+                <div id="loading-state" class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>טוען סיכום...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="error-state" class="error-state" style="display: none;">
+                    <p>לא ניתן לטעון את הסיכום. אנא נסי שוב.</p>
+                    <a href="summaries.html" class="btn btn--primary">חזרה לסיכומים</a>
+                </div>
+
+                <!-- Summary Content -->
+                <article class="summary-content card" id="summary-content" style="display: none;">
+                    <!-- Markdown content will be rendered here -->
+                </article>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">מבוא למדעי הפסיכולוגיה - אוניברסיטת תל אביב</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/summaries.js"></script>
+    <script>
+        // Initialize summary view on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lessonId = urlParams.get('lesson');
+
+            if (lessonId) {
+                loadSummaryPage(lessonId);
+            } else {
+                // No lesson specified, redirect to summaries list
+                window.location.href = 'summaries.html';
+            }
+        });
+    </script>
+</body>
+</html>
