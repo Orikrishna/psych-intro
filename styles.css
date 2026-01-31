@@ -452,6 +452,26 @@ body {
     gap: var(--space-lg);
 }
 
+/* ===== Course Sections (Homepage) ===== */
+.course-section {
+    margin-bottom: var(--space-3xl);
+}
+
+.course-section__title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: var(--space-xs);
+    text-align: center;
+}
+
+.course-section__subtitle {
+    font-size: var(--font-size-md);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
 /* ===== Pathway Cards (Homepage) ===== */
 .pathway-grid {
     display: grid;
