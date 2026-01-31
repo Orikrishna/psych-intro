@@ -547,6 +547,26 @@ body {
     border-color: #5fd3d1;
 }
 
+.pathway-card--full-lessons {
+    background: linear-gradient(135deg, #ffffff 0%, #fef9e7 100%);
+}
+
+.pathway-card--full-lessons .pathway-card__title {
+    color: #d4a000;
+}
+
+.pathway-card--full-lessons .stat__number {
+    color: #d4a000;
+}
+
+.pathway-card--full-lessons .pathway-card__cta {
+    color: #d4a000;
+}
+
+.pathway-card--full-lessons:hover {
+    border-color: #f6d045;
+}
+
 .pathway-card__icon {
     width: 100px;
     height: 100px;
@@ -2138,6 +2158,12 @@ body {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.summary-card__subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
     margin-bottom: var(--space-md);
 }
 
@@ -2203,7 +2229,34 @@ body {
 }
 
 .summary-header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: var(--space-sm);
+}
+
+.raw-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.raw-link:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.header-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-sm);
 }
 
 .summary-header__title {
