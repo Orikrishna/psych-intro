@@ -304,8 +304,9 @@ async function initFullLessonsGrid() {
 /**
  * Load and render a full lesson on full-lesson.html
  * @param {string} lessonId - Lesson ID (e.g., 'FC01')
+ * @param {boolean} showRaw - Whether to show raw version
  */
-async function loadFullLessonPage(lessonId) {
+async function loadFullLessonPage(lessonId, showRaw = false) {
     const lessonIndex = FULL_LESSONS.findIndex(l => l.id === lessonId);
     const lesson = FULL_LESSONS[lessonIndex];
 
@@ -314,16 +315,20 @@ async function loadFullLessonPage(lessonId) {
         return;
     }
 
+    // Determine which file to load
+    const fileToLoad = showRaw ? lesson.rawFile : lesson.file;
+    const titleSuffix = showRaw ? ' (מקור)' : '';
+
     // Update header
     const emojiEl = document.getElementById('lesson-emoji');
     const titleEl = document.getElementById('lesson-title');
     if (emojiEl) emojiEl.textContent = lesson.emoji;
-    if (titleEl) titleEl.textContent = `שיעור ${lessonIndex + 1}: ${lesson.name}`;
-    document.title = `${lesson.name} - סיכום מלא`;
+    if (titleEl) titleEl.textContent = `שיעור ${lessonIndex + 1}: ${lesson.name}${titleSuffix}`;
+    document.title = `${lesson.name}${titleSuffix} - סיכום מלא`;
 
     try {
         // Fetch markdown
-        const response = await fetch(`Summaries/${lesson.file}`);
+        const response = await fetch(`Summaries/${fileToLoad}`);
         if (!response.ok) throw new Error('Failed to fetch summary');
         const markdown = await response.text();
 
@@ -347,9 +352,17 @@ async function loadFullLessonPage(lessonId) {
                 link.setAttribute('rel', 'noopener noreferrer');
             });
 
-            // Add link to raw file
+            // Update raw/formatted link
             if (rawLinkEl) {
-                rawLinkEl.href = `Summaries/${lesson.rawFile}`;
+                if (showRaw) {
+                    // Currently viewing raw, link to formatted
+                    rawLinkEl.href = `full-lesson.html?lesson=${lessonId}`;
+                    rawLinkEl.innerHTML = '<span>📄</span> צפי בסיכום המעוצב';
+                } else {
+                    // Currently viewing formatted, link to raw
+                    rawLinkEl.href = `full-lesson.html?lesson=${lessonId}&type=raw`;
+                    rawLinkEl.innerHTML = '<span>📄</span> צפי בסיכום המקורי';
+                }
                 rawLinkEl.style.display = 'inline-flex';
             }
 

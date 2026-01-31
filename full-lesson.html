@@ -64,9 +64,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const lessonId = urlParams.get('lesson');
+            const showRaw = urlParams.get('type') === 'raw';
 
             if (lessonId) {
-                loadFullLessonPage(lessonId);
+                loadFullLessonPage(lessonId, showRaw);
             } else {
                 // No lesson specified, redirect to full lessons list
                 window.location.href = 'full-lessons.html';
