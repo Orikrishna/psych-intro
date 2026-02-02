@@ -386,12 +386,12 @@ body {
     background-image: url('images/hero-bg.png');
     background-size: cover;
     background-position: center center;
-    background-color: #87CEEB;
-    height: 464px; /* 50% of original 928px image height */
-    padding: var(--space-3xl) var(--space-lg);
+    background-color: var(--color-bg-cream);
+    height: 464px;
+    padding: var(--space-2xl) var(--space-lg);
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -402,11 +402,13 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    /* Bottom third fades to transparent */
-    background: linear-gradient(to top,
-        var(--color-bg-cream) 0%,
-        rgba(255, 253, 245, 0.6) 15%,
-        rgba(255, 253, 245, 0) 33%
+    /* Smooth fade to background at bottom */
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        transparent 50%,
+        rgba(255, 253, 245, 0.4) 65%,
+        rgba(255, 253, 245, 0.7) 80%,
+        var(--color-bg-cream) 100%
     );
     pointer-events: none;
 }
@@ -415,15 +417,17 @@ body {
     max-width: 1200px;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    padding-top: var(--space-xl);
 }
 
 .hero__content {
     position: relative;
     z-index: 2;
-    text-align: right;
-    flex: 1;
+    text-align: center;
+    width: 100%;
+    margin-bottom: var(--space-xl);
 }
 
 .hero__title {
