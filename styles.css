@@ -389,12 +389,12 @@ body {
     /* Fallback gradient mimicking the floral pastel image */
     background-color: #87CEEB;
     min-height: 350px;
-    padding: var(--space-3xl) var(--space-xl);
+    padding: var(--space-3xl) var(--space-lg);
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .hero::before {
@@ -408,12 +408,19 @@ body {
     pointer-events: none;
 }
 
+.hero__inner {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .hero__content {
     position: relative;
     z-index: 2;
     text-align: right;
     flex: 1;
-    padding-right: var(--space-xl);
 }
 
 .hero__title {
@@ -1910,14 +1917,16 @@ body {
     }
 
     .hero {
-        flex-direction: column;
-        padding: var(--space-xl);
+        padding: var(--space-xl) var(--space-md);
         min-height: 300px;
+    }
+
+    .hero__inner {
+        flex-direction: column;
         gap: var(--space-lg);
     }
 
     .hero__content {
-        padding-right: 0;
         text-align: center;
     }
 
