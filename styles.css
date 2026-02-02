@@ -1057,23 +1057,28 @@ body {
     color: var(--color-text-secondary);
 }
 
+/* ===== Footer Background Section ===== */
+.footer-bg {
+    background-image: url('images/footer-bg.webp');
+    background-size: cover;
+    background-position: center center;
+    background-color: var(--color-bg-cream);
+    min-height: 400px;
+    padding: var(--space-3xl) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Fade image at top */
+    -webkit-mask-image: linear-gradient(to top, black 0%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to top, black 0%, black 50%, transparent 100%);
+}
+
 /* ===== Footer ===== */
 .footer {
     padding: var(--space-2xl) 0;
-    background: linear-gradient(135deg, var(--color-bg-cream) 0%, var(--color-bg-mint) 100%);
+    background: var(--color-bg-cream);
     text-align: center;
-    margin-top: auto;
     position: relative;
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-accent-coral), var(--color-accent-gold), var(--color-accent-teal), var(--color-accent-mint));
 }
 
 .footer p {
@@ -1084,6 +1089,11 @@ body {
 /* ===== Progress Overview ===== */
 .progress-overview {
     text-align: center;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .progress-stats {
