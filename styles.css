@@ -2147,6 +2147,11 @@ body {
     box-shadow: none;
 }
 
+.test-mode-emoji {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+}
+
 .test-mode-icon {
     width: 48px;
     height: 48px;
@@ -2169,6 +2174,32 @@ body {
 .test-mode-card p {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
+}
+
+/* Card color variants */
+.test-mode-card--short {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe4e4 100%);
+    border-top: 4px solid #f87171;
+}
+
+.test-mode-card--medium {
+    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+    border-top: 4px solid #f472b6;
+}
+
+.test-mode-card--long {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border-top: 4px solid #fb923c;
+}
+
+.test-mode-card--all {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-top: 4px solid #60a5fa;
+}
+
+.test-mode-card--wrong {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border-top: 4px solid #a78bfa;
 }
 
 /* Sample test specific badge color */
