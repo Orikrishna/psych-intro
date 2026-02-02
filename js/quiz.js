@@ -36,6 +36,19 @@ class QuizApp {
             'L08': 'שיעור 8 - פסיכופתולוגיה'
         };
 
+        // Pastel colors for lesson cards (background and stroke pairs)
+        this.pastelColors = [
+            { bg: '#f0fdf4', stroke: '#22c55e' },   // green
+            { bg: '#fce7f3', stroke: '#ec4899' },   // pink
+            { bg: '#fef9c3', stroke: '#eab308' },   // yellow
+            { bg: '#dbeafe', stroke: '#3b82f6' },   // blue
+            { bg: '#f3e8ff', stroke: '#a855f7' },   // purple
+            { bg: '#ffedd5', stroke: '#f97316' },   // orange
+            { bg: '#cffafe', stroke: '#06b6d4' },   // cyan
+            { bg: '#e0e7ff', stroke: '#6366f1' },   // indigo
+            { bg: '#d1fae5', stroke: '#10b981' }    // emerald
+        ];
+
         this.init();
     }
 
@@ -129,17 +142,24 @@ class QuizApp {
         // If no questions loaded yet, show placeholder lessons
         const lessonsToShow = availableLessons.length > 0 ? availableLessons : Object.keys(this.lessonNames);
 
-        lessonsToShow.forEach(lessonKey => {
+        lessonsToShow.forEach((lessonKey, index) => {
             const questionCount = this.questions[lessonKey]?.length || 0;
             const bestScore = completedLessons[lessonKey];
             const isCompleted = bestScore !== undefined && bestScore >= 60;
 
+            // Get a pastel color for this lesson (cycle through colors)
+            const colorPair = this.pastelColors[index % this.pastelColors.length];
+
             const card = document.createElement('div');
             card.className = `lesson-card ${isCompleted ? 'completed' : ''} ${questionCount === 0 ? 'disabled' : ''}`;
+            card.style.setProperty('--card-bg-color', colorPair.bg);
+            card.style.setProperty('--card-stroke-color', colorPair.stroke);
+
+            // Completion badge positioned at top-right
             card.innerHTML = `
+                ${isCompleted ? '<span class="completion-badge">✓</span>' : ''}
                 <div class="lesson-card-header">
-                    <span class="lesson-number">${lessonKey.replace('L', '')}</span>
-                    ${isCompleted ? '<span class="completion-badge">✓</span>' : ''}
+                    <span class="lesson-number" style="background: ${colorPair.bg}; color: ${colorPair.stroke}; ${isCompleted ? `box-shadow: 0 0 0 3px ${colorPair.stroke};` : ''}">${lessonKey.replace('L', '')}</span>
                 </div>
                 <h3 class="lesson-card-title">${this.lessonNames[lessonKey] || lessonKey}</h3>
                 <div class="lesson-card-meta">

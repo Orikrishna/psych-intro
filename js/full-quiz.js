@@ -29,31 +29,32 @@ class FullQuizApp {
         this.stickerElement = null;
 
         // Full course lesson metadata (matching full-lessons.js)
+        // Each lesson has a light pastel background color and a darker stroke color based on emoji
         this.lessons = [
-            { id: 'FC01', name: 'מבוא לפסיכולוגיה', emoji: '🎓', color: '#2d7d46' },
-            { id: 'FC02', name: 'גישות בפסיכולוגיה והמוח', emoji: '🧠', color: '#1ba8a6' },
-            { id: 'FC03', name: 'המוח, הגישות וקשב', emoji: '⚡', color: '#8b5cf6' },
-            { id: 'FC04', name: 'קשב – מגבלות ועוררות', emoji: '🎯', color: '#f6d045' },
-            { id: 'FC05', name: 'קשב ותפיסה', emoji: '👁️', color: '#ff8a7a' },
-            { id: 'FC06', name: 'תפיסת עומק וקביעות', emoji: '🔭', color: '#47c163' },
-            { id: 'FC07', name: 'תפיסה – זיהוי והקשר', emoji: '🧩', color: '#60a5fa' },
-            { id: 'FC08', name: 'זיכרון – מודל שלושת המאגרים', emoji: '🗃️', color: '#b8a9e8' },
-            { id: 'FC09', name: 'Chunking וזיכרון עבודה', emoji: '📦', color: '#f472b6' },
-            { id: 'FC10', name: 'זיכרון עבודה וזיכרון לטווח ארוך', emoji: '💾', color: '#2d7d46' },
-            { id: 'FC11', name: 'סכמות, רשת סמנטית והיזכרות', emoji: '🕸️', color: '#1ba8a6' },
-            { id: 'FC12', name: 'זיכרון מדומה ושבעת החטאים', emoji: '🎭', color: '#8b5cf6' },
-            { id: 'FC13', name: 'למידה – מבוא והתניה קלאסית', emoji: '🐕', color: '#f6d045' },
-            { id: 'FC14', name: 'התניה קלאסית ואופרנטית', emoji: '🎰', color: '#ff8a7a' },
-            { id: 'FC15', name: 'למידה קוגניטיבית וחברתית', emoji: '🪞', color: '#47c163' },
-            { id: 'FC16', name: 'תיאוריות אישיות – פרויד א׳', emoji: '🛋️', color: '#60a5fa' },
-            { id: 'FC17', name: 'פרויד – מודל סטרוקטוראלי', emoji: '🎭', color: '#b8a9e8' },
-            { id: 'FC18', name: 'מנגנוני הגנה וגישות נוספות', emoji: '🛡️', color: '#f472b6' },
-            { id: 'FC19', name: 'פסיכופתולוגיה – מבוא', emoji: '📋', color: '#2d7d46' },
-            { id: 'FC20', name: 'OCD וחרדות', emoji: '🔄', color: '#1ba8a6' },
-            { id: 'FC21', name: 'דיכאון והפרעה דו-קוטבית', emoji: '🌧️', color: '#8b5cf6' },
-            { id: 'FC22', name: 'הסברים לדיכאון וסכיזופרניה', emoji: '🔬', color: '#f6d045' },
-            { id: 'FC23', name: 'שיטות טיפול – פסיכודינמי', emoji: '💬', color: '#ff8a7a' },
-            { id: 'FC24', name: 'טיפול קוגניטיבי-התנהגותי', emoji: '💡', color: '#47c163' }
+            { id: 'FC01', name: 'מבוא לפסיכולוגיה', emoji: '🎓', bgColor: '#f0fdf4', strokeColor: '#22c55e' },      // green (graduation cap)
+            { id: 'FC02', name: 'גישות בפסיכולוגיה והמוח', emoji: '🧠', bgColor: '#fce7f3', strokeColor: '#ec4899' }, // pink (brain)
+            { id: 'FC03', name: 'המוח, הגישות וקשב', emoji: '⚡', bgColor: '#fef9c3', strokeColor: '#eab308' },       // yellow (lightning)
+            { id: 'FC04', name: 'קשב – מגבלות ועוררות', emoji: '🎯', bgColor: '#fee2e2', strokeColor: '#ef4444' },    // red (target)
+            { id: 'FC05', name: 'קשב ותפיסה', emoji: '👁️', bgColor: '#dbeafe', strokeColor: '#3b82f6' },             // blue (eye)
+            { id: 'FC06', name: 'תפיסת עומק וקביעות', emoji: '🔭', bgColor: '#e0e7ff', strokeColor: '#6366f1' },      // indigo (telescope)
+            { id: 'FC07', name: 'תפיסה – זיהוי והקשר', emoji: '🧩', bgColor: '#f3e8ff', strokeColor: '#a855f7' },     // purple (puzzle)
+            { id: 'FC08', name: 'זיכרון – מודל שלושת המאגרים', emoji: '🗃️', bgColor: '#fef3c7', strokeColor: '#f59e0b' }, // amber (filing)
+            { id: 'FC09', name: 'Chunking וזיכרון עבודה', emoji: '📦', bgColor: '#ffedd5', strokeColor: '#f97316' },  // orange (box)
+            { id: 'FC10', name: 'זיכרון עבודה וזיכרון לטווח ארוך', emoji: '💾', bgColor: '#cffafe', strokeColor: '#06b6d4' }, // cyan (floppy)
+            { id: 'FC11', name: 'סכמות, רשת סמנטית והיזכרות', emoji: '🕸️', bgColor: '#f5f5f5', strokeColor: '#737373' }, // gray (web)
+            { id: 'FC12', name: 'זיכרון מדומה ושבעת החטאים', emoji: '🎭', bgColor: '#fae8ff', strokeColor: '#d946ef' }, // fuchsia (theater)
+            { id: 'FC13', name: 'למידה – מבוא והתניה קלאסית', emoji: '🐕', bgColor: '#fef3c7', strokeColor: '#d97706' }, // amber/brown (dog)
+            { id: 'FC14', name: 'התניה קלאסית ואופרנטית', emoji: '🎰', bgColor: '#fee2e2', strokeColor: '#dc2626' },  // red (slot machine)
+            { id: 'FC15', name: 'למידה קוגניטיבית וחברתית', emoji: '🪞', bgColor: '#e0f2fe', strokeColor: '#0ea5e9' }, // sky (mirror)
+            { id: 'FC16', name: 'תיאוריות אישיות – פרויד א׳', emoji: '🛋️', bgColor: '#dcfce7', strokeColor: '#16a34a' }, // green (couch)
+            { id: 'FC17', name: 'פרויד – מודל סטרוקטוראלי', emoji: '🎭', bgColor: '#ede9fe', strokeColor: '#8b5cf6' }, // violet (theater)
+            { id: 'FC18', name: 'מנגנוני הגנה וגישות נוספות', emoji: '🛡️', bgColor: '#dbeafe', strokeColor: '#2563eb' }, // blue (shield)
+            { id: 'FC19', name: 'פסיכופתולוגיה – מבוא', emoji: '📋', bgColor: '#ecfeff', strokeColor: '#0891b2' },    // cyan (clipboard)
+            { id: 'FC20', name: 'OCD וחרדות', emoji: '🔄', bgColor: '#d1fae5', strokeColor: '#10b981' },              // emerald (cycle)
+            { id: 'FC21', name: 'דיכאון והפרעה דו-קוטבית', emoji: '🌧️', bgColor: '#e0e7ff', strokeColor: '#4f46e5' }, // indigo (rain)
+            { id: 'FC22', name: 'הסברים לדיכאון וסכיזופרניה', emoji: '🔬', bgColor: '#f0fdfa', strokeColor: '#14b8a6' }, // teal (microscope)
+            { id: 'FC23', name: 'שיטות טיפול – פסיכודינמי', emoji: '💬', bgColor: '#fef9c3', strokeColor: '#ca8a04' }, // yellow (speech)
+            { id: 'FC24', name: 'טיפול קוגניטיבי-התנהגותי', emoji: '💡', bgColor: '#fef9c3', strokeColor: '#eab308' }  // yellow (bulb)
         ];
 
         this.init();
@@ -144,12 +145,14 @@ class FullQuizApp {
 
             const card = document.createElement('div');
             card.className = `lesson-card ${isCompleted ? 'completed' : ''} ${!hasQuestions ? 'disabled' : ''}`;
-            card.style.setProperty('--card-accent', lesson.color);
+            card.style.setProperty('--card-bg-color', lesson.bgColor);
+            card.style.setProperty('--card-stroke-color', lesson.strokeColor);
 
+            // Completion badge is positioned absolutely at top-right
             card.innerHTML = `
+                ${isCompleted ? '<span class="completion-badge">✓</span>' : ''}
                 <div class="lesson-card-header">
-                    <span class="lesson-number">${lesson.emoji}</span>
-                    ${isCompleted ? '<span class="completion-badge">✓</span>' : ''}
+                    <span class="lesson-number" style="background: ${lesson.bgColor}; ${isCompleted ? `box-shadow: 0 0 0 3px ${lesson.strokeColor};` : ''}">${lesson.emoji}</span>
                 </div>
                 <h3 class="lesson-card-title">שיעור ${index + 1}: ${lesson.name}</h3>
                 <div class="lesson-card-meta">
