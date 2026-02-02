@@ -8,6 +8,35 @@ class Homepage {
         this.loadStats();
         this.initEventListeners();
         this.loadCounts();
+        this.initCountdown();
+    }
+
+    initCountdown() {
+        // Target date: Feb 16, 2026 at 9:00 AM Israel time (UTC+2)
+        const targetDate = new Date('2026-02-16T09:00:00+02:00');
+
+        const updateCountdown = () => {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown-days').textContent = '0';
+                document.getElementById('countdown-hours').textContent = '0';
+                document.getElementById('countdown-minutes').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById('countdown-days').textContent = days;
+            document.getElementById('countdown-hours').textContent = hours;
+            document.getElementById('countdown-minutes').textContent = minutes;
+        };
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000); // Update every minute
     }
 
     async loadCounts() {
