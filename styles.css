@@ -393,24 +393,9 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Smooth fade to background at bottom */
-    background: linear-gradient(to bottom,
-        transparent 0%,
-        transparent 50%,
-        rgba(255, 253, 245, 0.4) 65%,
-        rgba(255, 253, 245, 0.7) 80%,
-        var(--color-bg-cream) 100%
-    );
-    pointer-events: none;
+    /* Fade image itself to transparent at bottom */
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
 }
 
 .hero__inner {
