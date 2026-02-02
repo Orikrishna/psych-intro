@@ -541,7 +541,7 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--color-accent-teal), var(--color-primary), var(--color-accent-gold));
+    background: var(--card-accent-color, var(--color-primary));
     opacity: 0;
     transition: opacity var(--transition-normal);
 }
@@ -549,23 +549,26 @@ body {
 .pathway-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--color-accent-mint);
 }
 
 .pathway-card:hover::before {
     opacity: 1;
 }
 
-.pathway-card--quiz {
-    background: linear-gradient(135deg, #ffffff 0%, #f0faf2 100%);
+/* Full Quiz Card - Green/Mint */
+.pathway-card--full-quiz {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    --card-accent-color: #22c55e;
 }
 
-.pathway-card--flashcards {
-    background: linear-gradient(135deg, #ffffff 0%, #fffdf7 100%);
+.pathway-card--full-quiz:hover {
+    border-color: #86efac;
 }
 
+/* Sample Test Card - Purple/Violet */
 .pathway-card--exam {
-    background: linear-gradient(135deg, #ffffff 0%, #f3f0ff 100%);
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    --card-accent-color: #a855f7;
 }
 
 .pathway-card--exam .pathway-card__title {
@@ -581,47 +584,95 @@ body {
 }
 
 .pathway-card--exam:hover {
-    border-color: #c4b5fd;
+    border-color: #d8b4fe;
 }
 
-.pathway-card--summaries {
-    background: linear-gradient(135deg, #ffffff 0%, #e6faf9 100%);
-}
-
-.pathway-card--summaries .pathway-card__title {
-    color: #1ba8a6;
-}
-
-.pathway-card--summaries .stat__number {
-    color: #1ba8a6;
-}
-
-.pathway-card--summaries .pathway-card__cta {
-    color: #1ba8a6;
-}
-
-.pathway-card--summaries:hover {
-    border-color: #5fd3d1;
-}
-
+/* Full Lessons Card - Yellow/Amber */
 .pathway-card--full-lessons {
-    background: linear-gradient(135deg, #ffffff 0%, #fef9e7 100%);
+    background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%);
+    --card-accent-color: #eab308;
 }
 
 .pathway-card--full-lessons .pathway-card__title {
-    color: #d4a000;
+    color: #ca8a04;
 }
 
 .pathway-card--full-lessons .stat__number {
-    color: #d4a000;
+    color: #ca8a04;
 }
 
 .pathway-card--full-lessons .pathway-card__cta {
-    color: #d4a000;
+    color: #ca8a04;
 }
 
 .pathway-card--full-lessons:hover {
-    border-color: #f6d045;
+    border-color: #fde047;
+}
+
+/* Online Quiz Card - Teal/Cyan */
+.pathway-card--online-quiz {
+    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+    --card-accent-color: #06b6d4;
+}
+
+.pathway-card--online-quiz .pathway-card__title {
+    color: #0891b2;
+}
+
+.pathway-card--online-quiz .stat__number {
+    color: #0891b2;
+}
+
+.pathway-card--online-quiz .pathway-card__cta {
+    color: #0891b2;
+}
+
+.pathway-card--online-quiz:hover {
+    border-color: #67e8f9;
+}
+
+/* Flashcards Card - Pink/Rose */
+.pathway-card--flashcards {
+    background: linear-gradient(135deg, #fff1f2 0%, #fecdd3 100%);
+    --card-accent-color: #f43f5e;
+}
+
+.pathway-card--flashcards .pathway-card__title {
+    color: #e11d48;
+}
+
+.pathway-card--flashcards .stat__number {
+    color: #e11d48;
+}
+
+.pathway-card--flashcards .pathway-card__cta {
+    color: #e11d48;
+}
+
+.pathway-card--flashcards:hover {
+    border-color: #fda4af;
+}
+
+/* Summaries Card - Blue/Sky */
+.pathway-card--summaries {
+    background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+    --card-accent-color: #0ea5e9;
+}
+
+.pathway-card--summaries .pathway-card__title {
+    color: #0284c7;
+}
+
+.pathway-card--summaries .stat__number {
+    color: #0284c7;
+}
+
+.pathway-card--summaries .pathway-card__cta {
+    color: #0284c7;
+}
+
+.pathway-card--summaries:hover {
+    border-color: #7dd3fc;
 }
 
 .pathway-card__icon {
