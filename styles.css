@@ -119,6 +119,27 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-image: url('images/hero-bg.png');
+    background-size: 100% auto;
+    background-position: center top;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.app::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 900px; /* Covers the image area */
+    background: linear-gradient(to top,
+        var(--color-bg-cream) 0%,
+        rgba(255, 253, 245, 0.85) 25%,
+        rgba(255, 253, 245, 0) 40%
+    );
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* ===== Typography ===== */
@@ -383,35 +404,13 @@ body {
 
 /* ===== Hero Section ===== */
 .hero {
-    background-image: url('images/hero-bg.png');
-    background-size: cover;
-    background-position: center top;
-    /* Fallback gradient mimicking the floral pastel image */
-    background-color: #87CEEB;
-    min-height: 400px;
+    min-height: 350px;
     padding: var(--space-3xl) var(--space-lg);
     position: relative;
-    overflow: hidden;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Gradient fade from bottom third to transparent */
-    background: linear-gradient(to top,
-        var(--color-bg-cream) 0%,
-        var(--color-bg-cream) 5%,
-        rgba(255, 253, 245, 0.8) 15%,
-        rgba(255, 253, 245, 0) 33%
-    );
-    pointer-events: none;
 }
 
 .hero__inner {
@@ -1078,6 +1077,7 @@ body {
     text-align: center;
     margin-top: auto;
     position: relative;
+    z-index: 2;
 }
 
 .footer::before {
