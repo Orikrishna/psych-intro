@@ -1075,15 +1075,19 @@ body {
 
 /* ===== Footer ===== */
 .footer {
-    padding: var(--space-2xl) 0;
+    padding: 5px 0;
+    height: 20px;
     background: var(--color-bg-cream);
     text-align: center;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .footer p {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    margin: 0;
 }
 
 /* ===== Progress Overview ===== */
