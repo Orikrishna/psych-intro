@@ -1075,8 +1075,8 @@ body {
 
 /* ===== Footer ===== */
 .footer {
-    padding: 5px 0;
-    height: 20px;
+    padding: 10px 0;
+    height: 40px;
     background: var(--color-bg-cream);
     text-align: center;
     display: flex;
@@ -1086,7 +1086,7 @@ body {
 
 .footer p {
     color: var(--color-text-muted);
-    font-size: 0.75rem;
+    font-size: 1rem;
     margin: 0;
 }
 
