@@ -145,6 +145,55 @@
         .event-type--flashcard_session { background: #fef3c7; color: #d97706; }
         .event-type--video_watch { background: #fee2e2; color: #dc2626; }
 
+        .score-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .score-badge--high { background: #dcfce7; color: #16a34a; }
+        .score-badge--medium { background: #fef3c7; color: #d97706; }
+        .score-badge--low { background: #fee2e2; color: #dc2626; }
+
+        .quiz-type-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+        }
+
+        .quiz-type-badge--online { background: #dbeafe; color: #1d4ed8; }
+        .quiz-type-badge--frontal { background: #f3e8ff; color: #7c3aed; }
+        .quiz-type-badge--sample { background: #fce7f3; color: #be185d; }
+
+        .user-scores-list {
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--color-bg-cream);
+            font-size: var(--font-size-sm);
+        }
+
+        .user-score-item {
+            display: inline-block;
+            margin: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-bg-cream);
+            border-radius: var(--radius-sm);
+        }
+
+        .user-card--expanded {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .user-card__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
         .loading {
             text-align: center;
             padding: var(--space-2xl);
@@ -228,12 +277,32 @@
             </div>
         </section>
 
-        <!-- Users List -->
+        <!-- Users List with Scores -->
         <section class="analytics-section">
-            <h2>Visitors</h2>
+            <h2>Visitors & Their Scores</h2>
             <div class="users-list" id="users-list">
                 <div class="loading">Loading...</div>
             </div>
+        </section>
+
+        <!-- Detailed Scores Table -->
+        <section class="analytics-section">
+            <h2>All Quiz Scores</h2>
+            <table class="events-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Visitor</th>
+                        <th>Quiz Type</th>
+                        <th>Lesson</th>
+                        <th>Score</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody id="scores-list">
+                    <tr><td colspan="6" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
         </section>
 
         <!-- Recent Events -->
@@ -307,34 +376,146 @@
             }
         }
 
+        function getScoreBadgeClass(percentage) {
+            if (percentage >= 70) return 'score-badge--high';
+            if (percentage >= 50) return 'score-badge--medium';
+            return 'score-badge--low';
+        }
+
+        function getQuizTypeLabel(type) {
+            const labels = {
+                'online': 'שיעורים מקוונים',
+                'frontal': 'שיעורים פרונטליים',
+                'sample': 'מבחן לדוגמא'
+            };
+            return labels[type] || type;
+        }
+
         async function loadAllData() {
             // Load users
             const users = await supabaseGet('users?select=*&order=created_at.desc');
             document.getElementById('total-users').textContent = users.length;
 
+            // Load ALL events (not just 50) to get complete user stats
+            const allEvents = await supabaseGet('events?select=*,users(animal_name)&order=created_at.desc');
+
+            // Group quiz scores by user
+            const userScores = {};
+            allEvents.filter(e => e.event_type === 'quiz_complete').forEach(event => {
+                const userName = event.users?.animal_name || 'Unknown';
+                if (!userScores[userName]) {
+                    userScores[userName] = [];
+                }
+                userScores[userName].push({
+                    type: event.event_data?.quiz_type || 'unknown',
+                    lesson: event.event_data?.lesson || '-',
+                    score: event.event_data?.score || 0,
+                    total: event.event_data?.total || 0,
+                    percentage: event.event_data?.percentage || 0,
+                    date: event.created_at
+                });
+            });
+
+            // Count flashcard sessions per user
+            const userFlashcards = {};
+            allEvents.filter(e => e.event_type === 'flashcard_session').forEach(event => {
+                const userName = event.users?.animal_name || 'Unknown';
+                if (!userFlashcards[userName]) {
+                    userFlashcards[userName] = { sessions: 0, reviewed: 0, known: 0 };
+                }
+                userFlashcards[userName].sessions++;
+                userFlashcards[userName].reviewed += event.event_data?.cards_reviewed || 0;
+                userFlashcards[userName].known += event.event_data?.cards_known || 0;
+            });
+
             const usersList = document.getElementById('users-list');
             if (users.length === 0) {
                 usersList.innerHTML = '<p class="loading">No visitors yet</p>';
             } else {
-                usersList.innerHTML = users.map(user => `
-                    <div class="user-card">
-                        <div>
-                            <div class="user-card__name">${user.animal_name}</div>
-                            <div class="user-card__meta">First visit: ${formatDate(user.created_at)}</div>
+                usersList.innerHTML = users.map(user => {
+                    const scores = userScores[user.animal_name] || [];
+                    const flashcards = userFlashcards[user.animal_name] || { sessions: 0, reviewed: 0, known: 0 };
+                    const avgScore = scores.length > 0
+                        ? Math.round(scores.reduce((sum, s) => sum + s.percentage, 0) / scores.length)
+                        : null;
+
+                    const scoresHtml = scores.length > 0
+                        ? `<div class="user-scores-list">
+                            <strong>Quiz Scores:</strong>
+                            ${scores.slice(0, 10).map(s => `
+                                <span class="user-score-item">
+                                    <span class="quiz-type-badge quiz-type-badge--${s.type}">${getQuizTypeLabel(s.type)}</span>
+                                    ${s.lesson}:
+                                    <span class="score-badge ${getScoreBadgeClass(s.percentage)}">${s.score}/${s.total} (${s.percentage}%)</span>
+                                </span>
+                            `).join('')}
+                            ${scores.length > 10 ? `<em>+${scores.length - 10} more...</em>` : ''}
+                           </div>`
+                        : '';
+
+                    const flashcardsHtml = flashcards.sessions > 0
+                        ? `<div class="user-scores-list">
+                            <strong>Flashcards:</strong> ${flashcards.sessions} sessions, ${flashcards.reviewed} reviewed, ${flashcards.known} marked known
+                           </div>`
+                        : '';
+
+                    return `
+                        <div class="user-card user-card--expanded">
+                            <div class="user-card__header">
+                                <div>
+                                    <div class="user-card__name">${user.animal_name}</div>
+                                    <div class="user-card__meta">First visit: ${formatDate(user.created_at)}</div>
+                                </div>
+                                <div class="user-card__stats">
+                                    <div class="user-card__stat">
+                                        <div class="user-card__stat-value">${scores.length}</div>
+                                        <div>quizzes</div>
+                                    </div>
+                                    ${avgScore !== null ? `
+                                    <div class="user-card__stat">
+                                        <div class="user-card__stat-value">${avgScore}%</div>
+                                        <div>avg score</div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            ${scoresHtml}
+                            ${flashcardsHtml}
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             }
 
             // Load sessions
             const sessions = await supabaseGet('sessions?select=*');
             document.getElementById('total-sessions').textContent = sessions.length;
 
-            // Load events
-            const events = await supabaseGet('events?select=*,users(animal_name)&order=created_at.desc&limit=50');
+            // Use already loaded events
+            const events = allEvents;
 
             // Count quiz completions and calculate average
             const quizEvents = events.filter(e => e.event_type === 'quiz_complete');
+
+            // Populate scores table
+            const scoresList = document.getElementById('scores-list');
+            if (quizEvents.length === 0) {
+                scoresList.innerHTML = '<tr><td colspan="6" class="loading">No quiz scores yet</td></tr>';
+            } else {
+                scoresList.innerHTML = quizEvents.map(event => {
+                    const data = event.event_data || {};
+                    const percentage = data.percentage || 0;
+                    return `
+                        <tr>
+                            <td>${formatDate(event.created_at)}</td>
+                            <td><strong>${event.users?.animal_name || 'Unknown'}</strong></td>
+                            <td><span class="quiz-type-badge quiz-type-badge--${data.quiz_type || 'unknown'}">${getQuizTypeLabel(data.quiz_type)}</span></td>
+                            <td>${data.lesson || '-'}</td>
+                            <td>${data.score || 0}/${data.total || 0}</td>
+                            <td><span class="score-badge ${getScoreBadgeClass(percentage)}">${percentage}%</span></td>
+                        </tr>
+                    `;
+                }).join('');
+            }
             document.getElementById('total-quizzes').textContent = quizEvents.length;
 
             if (quizEvents.length > 0) {
