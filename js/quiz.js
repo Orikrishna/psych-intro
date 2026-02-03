@@ -384,6 +384,11 @@ class QuizApp {
         stats.totalAttempted += total;
 
         localStorage.setItem('quiz-session-stats', JSON.stringify(stats));
+
+        // Track in Supabase analytics
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackQuizComplete('online', this.currentLesson, this.score, total);
+        }
     }
 
     showView(viewId) {

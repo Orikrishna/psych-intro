@@ -151,6 +151,11 @@ class OnlineLessonsApp {
 
         this.modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        // Track video watch in Supabase analytics
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackVideoWatch(lesson.id, lesson.name);
+        }
     }
 
     closeModal() {

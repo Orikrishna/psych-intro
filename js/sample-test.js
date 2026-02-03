@@ -289,6 +289,11 @@ class SampleTestApp {
         stats.totalAnswered += total;
 
         localStorage.setItem('sample-test-stats', JSON.stringify(stats));
+
+        // Track in Supabase analytics
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackQuizComplete('sample', this.currentMode, this.score, total);
+        }
     }
 
     showView(viewId) {

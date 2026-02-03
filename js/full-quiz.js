@@ -354,6 +354,11 @@ class FullQuizApp {
         stats.totalAttempted += total;
 
         localStorage.setItem(this.storageKey, JSON.stringify(stats));
+
+        // Track in Supabase analytics
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackQuizComplete('frontal', this.currentLesson, this.score, total);
+        }
     }
 
     showView(viewId) {

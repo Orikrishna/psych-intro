@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .analytics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .analytics-header {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .analytics-header h1 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .analytics-header p {
+            color: var(--color-text-secondary);
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .stat-box {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-box__value {
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-box__label {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        .analytics-section {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .analytics-section h2 {
+            color: var(--color-primary-dark);
+            margin-bottom: var(--space-lg);
+            font-size: var(--font-size-xl);
+            border-bottom: 2px solid var(--color-bg-mint);
+            padding-bottom: var(--space-sm);
+        }
+
+        .users-list {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .user-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--color-bg-cream);
+            border-radius: var(--radius-lg);
+            border-right: 4px solid var(--color-primary);
+        }
+
+        .user-card__name {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+
+        .user-card__meta {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        .user-card__stats {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: var(--font-size-sm);
+        }
+
+        .user-card__stat {
+            text-align: center;
+        }
+
+        .user-card__stat-value {
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .events-table th,
+        .events-table td {
+            padding: var(--space-md);
+            text-align: right;
+            border-bottom: 1px solid var(--color-bg-cream);
+        }
+
+        .events-table th {
+            background: var(--color-bg-cream);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+        }
+
+        .events-table tr:hover {
+            background: var(--color-bg-cream);
+        }
+
+        .event-type {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .event-type--page_view { background: #dbeafe; color: #1d4ed8; }
+        .event-type--quiz_complete { background: #dcfce7; color: #16a34a; }
+        .event-type--flashcard_session { background: #fef3c7; color: #d97706; }
+        .event-type--video_watch { background: #fee2e2; color: #dc2626; }
+
+        .loading {
+            text-align: center;
+            padding: var(--space-2xl);
+            color: var(--color-text-secondary);
+        }
+
+        .refresh-btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: var(--font-size-sm);
+        }
+
+        .refresh-btn:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .page-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .page-stat {
+            background: var(--color-bg-cream);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .page-stat__name {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-stat__count {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="analytics-container">
+        <header class="analytics-header">
+            <h1>Analytics Dashboard</h1>
+            <p>Site usage statistics and visitor tracking</p>
+            <button class="refresh-btn" onclick="loadAllData()">Refresh Data</button>
+        </header>
+
+        <!-- Overview Stats -->
+        <div class="stats-overview">
+            <div class="stat-box">
+                <span class="stat-box__value" id="total-users">-</span>
+                <span class="stat-box__label">Total Visitors</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box__value" id="total-sessions">-</span>
+                <span class="stat-box__label">Total Sessions</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box__value" id="total-quizzes">-</span>
+                <span class="stat-box__label">Quizzes Completed</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-box__value" id="avg-score">-</span>
+                <span class="stat-box__label">Average Quiz Score</span>
+            </div>
+        </div>
+
+        <!-- Page Views -->
+        <section class="analytics-section">
+            <h2>Page Views</h2>
+            <div class="page-stats" id="page-stats">
+                <div class="loading">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Users List -->
+        <section class="analytics-section">
+            <h2>Visitors</h2>
+            <div class="users-list" id="users-list">
+                <div class="loading">Loading...</div>
+            </div>
+        </section>
+
+        <!-- Recent Events -->
+        <section class="analytics-section">
+            <h2>Recent Activity</h2>
+            <table class="events-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Visitor</th>
+                        <th>Event</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="events-list">
+                    <tr><td colspan="4" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://tbcgkmuucjxynibokxuo.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_5sWPOX0LvUKSCDsXjmCWBA_xzbKfFo-';
+
+        async function supabaseGet(endpoint) {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`
+                }
+            });
+            return response.json();
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleString('he-IL', {
+                day: '2-digit',
+                month: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatEventType(type) {
+            const labels = {
+                'page_view': 'Page View',
+                'page_exit': 'Page Exit',
+                'quiz_complete': 'Quiz Complete',
+                'flashcard_session': 'Flashcards',
+                'video_watch': 'Video Watch'
+            };
+            return labels[type] || type;
+        }
+
+        function formatEventData(type, data) {
+            if (!data) return '-';
+            switch (type) {
+                case 'page_view':
+                case 'page_exit':
+                    return data.page + (data.duration_seconds ? ` (${data.duration_seconds}s)` : '');
+                case 'quiz_complete':
+                    return `${data.lesson}: ${data.score}/${data.total} (${data.percentage}%)`;
+                case 'flashcard_session':
+                    return `${data.cards_reviewed} reviewed, ${data.cards_known} known`;
+                case 'video_watch':
+                    return data.lesson_name;
+                default:
+                    return JSON.stringify(data);
+            }
+        }
+
+        async function loadAllData() {
+            // Load users
+            const users = await supabaseGet('users?select=*&order=created_at.desc');
+            document.getElementById('total-users').textContent = users.length;
+
+            const usersList = document.getElementById('users-list');
+            if (users.length === 0) {
+                usersList.innerHTML = '<p class="loading">No visitors yet</p>';
+            } else {
+                usersList.innerHTML = users.map(user => `
+                    <div class="user-card">
+                        <div>
+                            <div class="user-card__name">${user.animal_name}</div>
+                            <div class="user-card__meta">First visit: ${formatDate(user.created_at)}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Load sessions
+            const sessions = await supabaseGet('sessions?select=*');
+            document.getElementById('total-sessions').textContent = sessions.length;
+
+            // Load events
+            const events = await supabaseGet('events?select=*,users(animal_name)&order=created_at.desc&limit=50');
+
+            // Count quiz completions and calculate average
+            const quizEvents = events.filter(e => e.event_type === 'quiz_complete');
+            document.getElementById('total-quizzes').textContent = quizEvents.length;
+
+            if (quizEvents.length > 0) {
+                const avgScore = quizEvents.reduce((sum, e) => sum + (e.event_data?.percentage || 0), 0) / quizEvents.length;
+                document.getElementById('avg-score').textContent = Math.round(avgScore) + '%';
+            } else {
+                document.getElementById('avg-score').textContent = '-';
+            }
+
+            // Page view counts
+            const pageViews = events.filter(e => e.event_type === 'page_view');
+            const pageCounts = {};
+            pageViews.forEach(e => {
+                const page = e.event_data?.page || 'unknown';
+                pageCounts[page] = (pageCounts[page] || 0) + 1;
+            });
+
+            const pageStats = document.getElementById('page-stats');
+            const sortedPages = Object.entries(pageCounts).sort((a, b) => b[1] - a[1]);
+            if (sortedPages.length === 0) {
+                pageStats.innerHTML = '<p class="loading">No page views yet</p>';
+            } else {
+                pageStats.innerHTML = sortedPages.map(([page, count]) => `
+                    <div class="page-stat">
+                        <div class="page-stat__name">${page}</div>
+                        <div class="page-stat__count">${count}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Recent events table
+            const eventsList = document.getElementById('events-list');
+            const significantEvents = events.filter(e => e.event_type !== 'page_exit');
+            if (significantEvents.length === 0) {
+                eventsList.innerHTML = '<tr><td colspan="4" class="loading">No events yet</td></tr>';
+            } else {
+                eventsList.innerHTML = significantEvents.slice(0, 30).map(event => `
+                    <tr>
+                        <td>${formatDate(event.created_at)}</td>
+                        <td>${event.users?.animal_name || 'Unknown'}</td>
+                        <td><span class="event-type event-type--${event.event_type}">${formatEventType(event.event_type)}</span></td>
+                        <td>${formatEventData(event.event_type, event.event_data)}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Load data on page load
+        loadAllData();
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadAllData, 30000);
+    </script>
+</body>
+</html>

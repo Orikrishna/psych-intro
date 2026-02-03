@@ -285,6 +285,11 @@ class FlashcardApp {
         document.getElementById('session-reviewed').textContent = this.sessionReviewed;
         document.getElementById('session-known').textContent = this.sessionKnown;
         this.showView('complete-view');
+
+        // Track in Supabase analytics
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackFlashcardSession(this.sessionReviewed, this.sessionKnown);
+        }
     }
 
     resetKnown() {

@@ -1,0 +1,324 @@
+/**
+ * Analytics Module
+ * Tracks site visits, page views, and user actions using Supabase
+ */
+
+const Analytics = (function() {
+    // Supabase configuration
+    const SUPABASE_URL = 'https://tbcgkmuucjxynibokxuo.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_5sWPOX0LvUKSCDsXjmCWBA_xzbKfFo-';
+
+    // Animal names for anonymous users
+    const ADJECTIVES = [
+        'Happy', 'Clever', 'Swift', 'Brave', 'Gentle', 'Wise', 'Calm', 'Bright',
+        'Kind', 'Bold', 'Quick', 'Warm', 'Cool', 'Sharp', 'Soft', 'Lucky'
+    ];
+    const ANIMALS = [
+        'Fox', 'Owl', 'Bear', 'Wolf', 'Deer', 'Hawk', 'Lion', 'Tiger',
+        'Panda', 'Koala', 'Eagle', 'Dolphin', 'Penguin', 'Rabbit', 'Otter', 'Falcon'
+    ];
+
+    let userId = null;
+    let sessionId = null;
+    let currentPage = null;
+    let pageStartTime = null;
+    let pagesVisited = [];
+
+    /**
+     * Generate a device fingerprint based on browser characteristics
+     */
+    function generateFingerprint() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillText('fingerprint', 2, 2);
+        const canvasData = canvas.toDataURL();
+
+        const components = [
+            navigator.userAgent,
+            navigator.language,
+            screen.width + 'x' + screen.height,
+            screen.colorDepth,
+            new Date().getTimezoneOffset(),
+            canvasData.slice(-50)
+        ];
+
+        // Simple hash function
+        let hash = 0;
+        const str = components.join('|');
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+        }
+        return 'fp_' + Math.abs(hash).toString(36);
+    }
+
+    /**
+     * Generate a random animal name
+     */
+    function generateAnimalName() {
+        const adj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
+        const animal = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
+        return `${adj} ${animal}`;
+    }
+
+    /**
+     * Make a request to Supabase
+     */
+    async function supabaseRequest(endpoint, method, body = null) {
+        try {
+            const options = {
+                method,
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                }
+            };
+            if (body) {
+                options.body = JSON.stringify(body);
+            }
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, options);
+            if (!response.ok) {
+                console.warn('Analytics request failed:', response.status);
+                return null;
+            }
+            const text = await response.text();
+            return text ? JSON.parse(text) : null;
+        } catch (e) {
+            console.warn('Analytics error:', e);
+            return null;
+        }
+    }
+
+    /**
+     * Get or create user based on device fingerprint
+     */
+    async function getOrCreateUser() {
+        const fingerprint = generateFingerprint();
+
+        // Check localStorage first for faster load
+        const cached = localStorage.getItem('analytics_user');
+        if (cached) {
+            const data = JSON.parse(cached);
+            if (data.fingerprint === fingerprint) {
+                userId = data.userId;
+                return userId;
+            }
+        }
+
+        // Check if user exists in Supabase
+        const existing = await supabaseRequest(
+            `users?device_fingerprint=eq.${fingerprint}&select=id`,
+            'GET'
+        );
+
+        if (existing && existing.length > 0) {
+            userId = existing[0].id;
+        } else {
+            // Create new user
+            const animalName = generateAnimalName();
+            const created = await supabaseRequest('users', 'POST', {
+                device_fingerprint: fingerprint,
+                animal_name: animalName
+            });
+            if (created && created.length > 0) {
+                userId = created[0].id;
+            }
+        }
+
+        // Cache in localStorage
+        if (userId) {
+            localStorage.setItem('analytics_user', JSON.stringify({
+                fingerprint,
+                userId
+            }));
+        }
+
+        return userId;
+    }
+
+    /**
+     * Start a new session
+     */
+    async function startSession() {
+        if (!userId) return null;
+
+        const created = await supabaseRequest('sessions', 'POST', {
+            user_id: userId,
+            pages_visited: []
+        });
+
+        if (created && created.length > 0) {
+            sessionId = created[0].id;
+            // Cache session ID
+            sessionStorage.setItem('analytics_session', sessionId);
+        }
+
+        return sessionId;
+    }
+
+    /**
+     * Update session with visited pages
+     */
+    async function updateSession() {
+        if (!sessionId || pagesVisited.length === 0) return;
+
+        await supabaseRequest(
+            `sessions?id=eq.${sessionId}`,
+            'PATCH',
+            { pages_visited: pagesVisited }
+        );
+    }
+
+    /**
+     * End the current session
+     */
+    async function endSession() {
+        if (!sessionId) return;
+
+        await supabaseRequest(
+            `sessions?id=eq.${sessionId}`,
+            'PATCH',
+            {
+                ended_at: new Date().toISOString(),
+                pages_visited: pagesVisited
+            }
+        );
+    }
+
+    /**
+     * Track an event
+     */
+    async function trackEvent(eventType, eventData = {}) {
+        if (!userId) return;
+
+        // Use cached session if available
+        if (!sessionId) {
+            sessionId = sessionStorage.getItem('analytics_session');
+        }
+
+        await supabaseRequest('events', 'POST', {
+            user_id: userId,
+            session_id: sessionId,
+            event_type: eventType,
+            event_data: eventData
+        });
+    }
+
+    /**
+     * Track page view
+     */
+    function trackPageView() {
+        const page = window.location.pathname.split('/').pop() || 'index.html';
+        currentPage = page;
+        pageStartTime = Date.now();
+
+        if (!pagesVisited.includes(page)) {
+            pagesVisited.push(page);
+            updateSession();
+        }
+
+        trackEvent('page_view', { page });
+    }
+
+    /**
+     * Track page exit (time spent)
+     */
+    function trackPageExit() {
+        if (currentPage && pageStartTime) {
+            const duration = Math.round((Date.now() - pageStartTime) / 1000);
+            trackEvent('page_exit', {
+                page: currentPage,
+                duration_seconds: duration
+            });
+        }
+    }
+
+    /**
+     * Initialize analytics
+     */
+    async function init() {
+        // Don't track on admin page
+        if (window.location.pathname.includes('admin-analytics')) {
+            return;
+        }
+
+        await getOrCreateUser();
+
+        // Check for existing session
+        const existingSession = sessionStorage.getItem('analytics_session');
+        if (existingSession) {
+            sessionId = existingSession;
+        } else {
+            await startSession();
+        }
+
+        // Track page view
+        trackPageView();
+
+        // Track page exit on unload
+        window.addEventListener('beforeunload', () => {
+            trackPageExit();
+            endSession();
+        });
+
+        // Track visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                trackPageExit();
+            } else {
+                pageStartTime = Date.now();
+            }
+        });
+    }
+
+    // Public API
+    return {
+        init,
+        trackEvent,
+
+        /**
+         * Track quiz completion
+         */
+        trackQuizComplete(quizType, lesson, score, total) {
+            trackEvent('quiz_complete', {
+                quiz_type: quizType, // 'online', 'frontal', 'sample'
+                lesson,
+                score,
+                total,
+                percentage: Math.round((score / total) * 100)
+            });
+        },
+
+        /**
+         * Track flashcard session
+         */
+        trackFlashcardSession(cardsReviewed, cardsKnown) {
+            trackEvent('flashcard_session', {
+                cards_reviewed: cardsReviewed,
+                cards_known: cardsKnown
+            });
+        },
+
+        /**
+         * Track video watched
+         */
+        trackVideoWatch(lessonId, lessonName) {
+            trackEvent('video_watch', {
+                lesson_id: lessonId,
+                lesson_name: lessonName
+            });
+        }
+    };
+})();
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => Analytics.init());
+} else {
+    Analytics.init();
+}
