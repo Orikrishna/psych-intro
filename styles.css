@@ -2702,13 +2702,12 @@ body {
     cursor: pointer;
     transition: all var(--transition-normal);
     box-shadow: var(--shadow-md);
-    border: 2px solid transparent;
+    border: 2px solid var(--card-color, var(--color-primary));
 }
 
 .video-lesson-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-xl);
-    border-color: var(--card-color, var(--color-primary));
 }
 
 .video-lesson-card__thumbnail {
@@ -2880,7 +2879,7 @@ body {
 /* Responsive for video lessons */
 @media (max-width: 768px) {
     .video-lesson-card {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 
     .video-lesson-card__thumbnail {
@@ -2889,12 +2888,27 @@ body {
         aspect-ratio: 16 / 9;
     }
 
+    .video-lesson-card__play {
+        width: 50px;
+        height: 50px;
+        background: var(--card-color, rgba(0, 0, 0, 0.7));
+    }
+
+    .video-lesson-card__play svg {
+        width: 24px;
+        height: 24px;
+    }
+
     .video-lesson-card__content {
         padding: var(--space-lg);
     }
 
     .video-lesson-card__title {
         font-size: var(--font-size-lg);
+    }
+
+    .video-lesson-card__emoji {
+        font-size: 1.5rem;
     }
 
     .video-modal__content {

@@ -146,8 +146,8 @@ class OnlineLessonsApp {
         const title = document.getElementById('modal-title');
         title.textContent = `שיעור ${index}: ${lesson.name}`;
 
-        // Set iframe src with autoplay
-        this.iframe.src = `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1&rel=0`;
+        // Set iframe src with autoplay and playsinline for iOS
+        this.iframe.src = `https://www.youtube.com/embed/${lesson.videoId}?autoplay=1&rel=0&playsinline=1`;
 
         this.modal.classList.add('active');
         document.body.style.overflow = 'hidden';
