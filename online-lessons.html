@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>כל השיעורים המקוונים - מבוא לפסיכולוגיה</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                חזרה לדף הבית
+            </a>
+            <h1>כל השיעורים המקוונים</h1>
+        </header>
+
+        <!-- Lessons List -->
+        <div class="video-lessons-list" id="lessons-list">
+            <!-- Lessons will be loaded dynamically -->
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal__backdrop" id="modal-backdrop"></div>
+        <div class="video-modal__content">
+            <button class="video-modal__close" id="modal-close">✕</button>
+            <div class="video-modal__player">
+                <iframe id="video-iframe"
+                    src=""
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <h2 class="video-modal__title" id="modal-title"></h2>
+        </div>
+    </div>
+
+    <script src="js/online-lessons.js"></script>
+</body>
+</html>
