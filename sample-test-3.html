@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבחן לדוגמה 3 - מבוא לפסיכולוגיה</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', 'Segoe UI', system-ui, sans-serif;
+            background-color: #fafbfc;
+            color: #1f2937;
+            line-height: 1.6;
+            font-size: 11pt;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #235524 0%, #2d7d46 50%, #47c163 100%);
+            background-image: url('images/hero-bg.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(35, 85, 36, 0.85) 0%, rgba(45, 125, 70, 0.75) 50%, rgba(71, 193, 99, 0.7) 100%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 14pt;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .header .uni {
+            font-size: 11pt;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .question-section {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .question-header {
+            background: linear-gradient(90deg, #2d7d46, #47c163);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            font-size: 12pt;
+        }
+
+        .question-body {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 16px;
+        }
+
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .options {
+            list-style: none;
+        }
+
+        .options li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+
+        .options li:hover {
+            background: #f0faf2;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2d7d46, transparent);
+            margin: 40px 0;
+        }
+
+        .answers-section {
+            page-break-before: always;
+        }
+
+        .answers-header {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 20pt;
+            font-weight: 700;
+        }
+
+        .answer-item {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border-right: 4px solid #2d7d46;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+
+        .answer-item h3 {
+            color: #2d7d46;
+            font-size: 13pt;
+            margin-bottom: 8px;
+        }
+
+        .answer-item .correct {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .answer-item .explanation {
+            color: #5a6c7d;
+            font-size: 10pt;
+            line-height: 1.5;
+        }
+
+        .footer {
+            background-image: url('images/footer-bg.webp');
+            background-size: cover;
+            background-position: center;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(35, 85, 36, 0.9);
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer p {
+            font-size: 12pt;
+        }
+
+        .footer .love {
+            color: #f87171;
+        }
+
+        @media print {
+            body {
+                font-size: 10pt;
+            }
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .question-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .answers-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .answer-item {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .footer {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>מבחן לדוגמה שנוצר באמצע רחוב יצחק שדה</h1>
+            <p class="subtitle">מבוא לפסיכולוגיה - 35 שאלות</p>
+            <p class="uni">אוניברסיטת תל אביב</p>
+        </div>
+    </header>
+
+    <main class="content">
+        <!-- Question 1 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 1</div>
+            <div class="question-body">
+                <p class="question-text">בכדי להיות חוקרת או מטפל פסיכולוגי טוב עלינו:</p>
+                <ul class="options">
+                    <li>א. להשתמש תמיד אך ורק בשיטה המדעית, בידע מדעי ובכלים מדעיים.</li>
+                    <li>ב. להשתמש בשיטה המדעית ובכלי המדעיים רק במקרי קיצון, בהם האינטואיציה לא מספיקה.</li>
+                    <li>ג. לבחור בין הכלים המדעיים לאינטואיציה בהתאם למצב הרוח.</li>
+                    <li>ד. להסתמך כמה שיותר על השיטה המדעית, אך גם לנקוט ביצירתיות ובביקורתיות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 2</div>
+            <div class="question-body">
+                <p class="question-text">המטופל נכנס והחל לדבר בשפה מוזרה "אתמול הלכתי לבקריטיקי צ'יק, לאחר זמן מה, פילגומופופו ונרדמתי". לאחר מכן הוא השתתק ובהה באוויר דקותה ארוכות. זו דוגמה ל:</p>
+                <ul class="options">
+                    <li>א. הפרעות בתוכן החשיבה.</li>
+                    <li>ב. הפרעה בארגון החשיבה.</li>
+                    <li>ג. הפרעה בתפיסה.</li>
+                    <li>ד. אפקט שטוח.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 3</div>
+            <div class="question-body">
+                <p class="question-text">על פי מודל ההומונקולוס העוסק בארגון המוח:</p>
+                <ul class="options">
+                    <li>א. לשטח יחסי קטן יותר.</li>
+                    <li>ב. אין לאיברים השונים ייצוגים באזורים מוגדרים במוח, אלא כל איבר מוגדר על פי רשת פעילות באונה האוקסיפיטלית והטמפורלית.</li>
+                    <li>ג. לכל איבר יש אזור תואם במוח, ואיברים בעלי תפקוד מדויק יותר זוכים לשטח יחסי גדול יותר.</li>
+                    <li>ד. לחלק מהאיברים יש ייצוג, לאחרים אין, ולא ניתן להגיד דבר על השטח היחסי לו הם זוכים.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 4</div>
+            <div class="question-body">
+                <p class="question-text">מה מהבאים לא מהווה את אחד השלבים ההתפתחותיים על פי ז'אן פיאז'ה?</p>
+                <ul class="options">
+                    <li>א. השלב הפרה-אופרציונלי.</li>
+                    <li>ב. השלב הפוסט-סנסורי.</li>
+                    <li>ג. השלב האופרציונלי-קונקרטי.</li>
+                    <li>ד. השלב האופרציונלי-פורמאלי.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 5</div>
+            <div class="question-body">
+                <p class="question-text">שון הוא שחקן הוקי מוכשר שמעולם לא שיחק טניס. לכן סביר שנוכחות קהל:</p>
+                <ul class="options">
+                    <li>א. תשפר את ביצועיו בטניס ובהוקי.</li>
+                    <li>ב. תשפר את ביצועיו בטניס אך תפגע בביצועיו בהוקי.</li>
+                    <li>ג. תשפר את ביצועיו בהוקי אך תפגע בביצועיו בטניס.</li>
+                    <li>ד. תפגע בביצועיו בטניס ובהוקי.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 6</div>
+            <div class="question-body">
+                <p class="question-text">על פי ה trait theory - תיאוריית התכונות?</p>
+                <ul class="options">
+                    <li>א. תכונות הן היחידות האישיותית הבסיסית, ויש אפשרות למדוד את רמתן.</li>
+                    <li>ב. תכונה היא סך המרכיבים האישיותיים והיא משתנה לאורך החיים.</li>
+                    <li>ג. תכונות מייצגות מבנה סובייקטיבי המשמש לבחינת השאירות.</li>
+                    <li>ד. ישנן תכונות שרמתן זהה בין בני האדם באופן אוניברסלי.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 7</div>
+            <div class="question-body">
+                <p class="question-text">אריאה השתתפה בדיון על בעיה שהיא לא הייתה בטוחה איך לפתור. לכן, כאשר נשאלה לדעתה היא חזרה על דבריהן של הדוברות הקודמות והביעה איתן הסכמה. בסוף הדיון, עזרא, משתתף אחר, ראה שכל המשתתפים לוקחים לביתם את הכיבוד שנשאר. הוא חשב שזה לא בסדר, אבל עשה את זה גם כי הוא חשש שיחשבו עליו משהו שלילי. ההתנהגויות אלו מדגימות:</p>
+                <ul class="options">
+                    <li>א. אריאה ועזרא הפגינו קונפורמיות אינפורמטיבית.</li>
+                    <li>ב. אריאה הפגינה קונפורמיות נורמטיבית ועזרא הפגין קונפורמיות אינפורמטיבית.</li>
+                    <li>ג. אריאה הפגינה קונפורמיות אינפורמטיבית ועזרא הפגין קונפורמיות נורמטיבית.</li>
+                    <li>ד. אריאה ועזרא הפגינו קונפורמיות נורמטיבית.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 8</div>
+            <div class="question-body">
+                <p class="question-text">איזה מבחן משמש לאבחון פסיכולוגי באמצעות השלכה?</p>
+                <ul class="options">
+                    <li>א. מבחן רורשאך</li>
+                    <li>ב. מבחן וקסלר</li>
+                    <li>ג. מבחן פיזה</li>
+                    <li>ד. מבחן פרמקולוגי</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 9</div>
+            <div class="question-body">
+                <p class="question-text">על פי מודל תוכן הסטראוטיפים, היכן נמצא סטראוטיפ שמאפיין אנשים כמאוד לא נחמדים אך בעלי יכולות גבוהות?</p>
+                <ul class="options">
+                    <li>א. גבוה במדד הקומפטנטיות אך נמוך במדד החברתיות-מוסריות.</li>
+                    <li>ב. גבוה במדד החברתיות-מוסריות אך נמוך במדד הקומפטנטיות.</li>
+                    <li>ג. נמוך במדד הקומפטנטיות ובמדד החברתיות-מוסריות.</li>
+                    <li>ד. גבוה במדד הקומפטנטיות ובמדד החברתיות-מוסריות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 10</div>
+            <div class="question-body">
+                <p class="question-text">מה מנבאת אינטליגנציה רגשית גבוהה?</p>
+                <ul class="options">
+                    <li>א. התנהגות אלימה ואגרסיבית.</li>
+                    <li>ב. שימוש מוגבר בסמים בבגרות.</li>
+                    <li>ג. התמודדות גרועה עם לחץ.</li>
+                    <li>ד. אף תשובה לא נכונה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 11</div>
+            <div class="question-body">
+                <p class="question-text">לפני חודשיים אנדריי סבל מהתקף פאניקה. בכדי שיאובחן עם הפרעת פאניקה, איזה קריטריון נוסף צריך להתמלא?</p>
+                <ul class="options">
+                    <li>א. הוא סובל מלחץ דם גבוה.</li>
+                    <li>ב. הוא חושש מהתקף נוסף או שישנה הפרעה תפקודית בעקבות ההתקף.</li>
+                    <li>ג. הוא צריך לסבול מאפיזודות של מצב רוח גבוה, תחושות אופוריה ובלבולת.</li>
+                    <li>ד. מספיק שסבל מההתקף עצמו כדי שיאובחן עם הפרעת פאניקה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 12</div>
+            <div class="question-body">
+                <p class="question-text">אילו מהגורמים הבאים יכולים להשפיע לרעה על המחקר?</p>
+                <ul class="options">
+                    <li>א. הטיות סובייקטיביות.</li>
+                    <li>ב. דעות קדומות.</li>
+                    <li>ג. ציפיות אישיות.</li>
+                    <li>ד. כל התשובות נכונות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 13</div>
+            <div class="question-body">
+                <p class="question-text">באיזו שאלה מתמקדת הגישה ההומניסטית בפסיכולוגיה?</p>
+                <ul class="options">
+                    <li>א. כיצד המוח והיחסים החברתיים השתנו והתפתחו כדי להתאים לסביבה.</li>
+                    <li>ב. מהם המבנים המנטליים המאפשרים חשיבה.</li>
+                    <li>ג. מהם הדחפים שעומדים בבסיס נפש האדם.</li>
+                    <li>ד. מהם הצרכים הבסיסיים של האדם וכיצד האדם ממש את יכולותיו.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 14</div>
+            <div class="question-body">
+                <p class="question-text">מהי למידה?</p>
+                <ul class="options">
+                    <li>א. שינוי קבוע יחסית בהתנהגות או בסיכוי לביצוע התנהגות בעקבות התנסות.</li>
+                    <li>ב. מבנה קבוע ויציב של תכונות ומאפיינים אישיותיים.</li>
+                    <li>ג. שינוי זמני בהתנהגות בגלל דחפים פנימיים או חסך כלשהו.</li>
+                    <li>ד. המרה של אותות מהעולם הממשי לייצוגים מנטליים במוח.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 15</div>
+            <div class="question-body">
+                <p class="question-text">מה מהבאים יכול להוות דוגמה להטיה קוגניטיבית בקרב חולי דיכאון?</p>
+                <ul class="options">
+                    <li>א. נוגדי דיכאון מסוג SSRI עוזרים לחלק מהחולים.</li>
+                    <li>ב. טיפול בסם קטמין נחקר כטיפול אפשרי לחולי דיכאון.</li>
+                    <li>ג. אנשים הסובלים מדיכאון מתקשים להיזכר באירועים משמחים.</li>
+                    <li>ד. אנשים הסובלים מדיכאון נוטים לסבול גם מהפרעות נוספות כמו חרדה במקביל.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 16</div>
+            <div class="question-body">
+                <p class="question-text">מה מהבאים יכול לגרום להפרעות בתפקוד הפסיכולוגי או המנטלי של האדם?</p>
+                <ul class="options">
+                    <li>א. נזק לרקמה במוח.</li>
+                    <li>ב. נטייה גנטית.</li>
+                    <li>ג. אבנורמליות מבנית במוח.</li>
+                    <li>ד. כל התשובות נכונות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 17</div>
+            <div class="question-body">
+                <p class="question-text">משפט כמו "כתב היד של וויניץ' הוא ספר שנכתב בתחילת המאה ה-15, בשפה לא ידועה, וזהות המחבר/ת גם כן בגדר תעלומה". יכול להוות דוגמה לפריט המתאים ל:</p>
+                <ul class="options">
+                    <li>א. זיכרון סמנטי.</li>
+                    <li>ב. זיכרון לא מודע.</li>
+                    <li>ג. זיכרון פרוצדורלי.</li>
+                    <li>ד. זיכרון אפיזודי.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 18</div>
+            <div class="question-body">
+                <p class="question-text">מה עלינו לעשות כדי להפחית הטיות הנובעות מסטריאוטיפים?</p>
+                <ul class="options">
+                    <li>א. לנסות להבין אילו הטיות יש לנו ולהיות מודעים/ות אליהן.</li>
+                    <li>ב. לשכנע את עצמנו שאין לנו שום הטיות כלל.</li>
+                    <li>ג. לצאת ולבדוק האם הסטריאוטיפים שלנו מתממשים במציאות.</li>
+                    <li>ד. לא ניתן לעשות דבר בנוגע להטיות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 19</div>
+            <div class="question-body">
+                <p class="question-text">איזו מחלה נפשית אפשר לתרגם כ"פיצול המיינד (נפש)"?</p>
+                <ul class="options">
+                    <li>א. דיכאון מאז'ורי.</li>
+                    <li>ב. סכיזופרניה.</li>
+                    <li>ג. הפרעה דו-קוטבית.</li>
+                    <li>ד. PTSD.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 20</div>
+            <div class="question-body">
+                <p class="question-text">מהו המבנה הנפשי של האיד (הסתמי)?</p>
+                <ul class="options">
+                    <li>א. מתואר כיצרי, חייתי, ומחפש סוגי סיפוקים מיידיים.</li>
+                    <li>ב. מעוצב על ידי רצונות החברה, הדת, ומוגדר על פי מה שבון.</li>
+                    <li>ג. מוגדר כהפרעה נפשית על ידי ה-DSM.</li>
+                    <li>ד. מוגע על ידי חרדה וצופיה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 21 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 21</div>
+            <div class="question-body">
+                <p class="question-text">אחד מהסימפטומים של הסכיזופרניה ממנו סובלת המטופלת? היא המחשבה שהשכנים מנסים לחטוף אותה בלילה. זו דוגמה ל?</p>
+                <ul class="options">
+                    <li>א. הפרעה בארגון החשיבה.</li>
+                    <li>ב. הפרעה בתפיסה.</li>
+                    <li>ג. הפרעה בתוכן החשיבה.</li>
+                    <li>ד. הפרעה בהנעה וריגוש.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 22</div>
+            <div class="question-body">
+                <p class="question-text">בהמשך לשאלה הקודמת, מה מהבאים היה יכול ביותר להעלות את הסיכוי להתפרצות הסכיזופרניה אצל נ"ל?</p>
+                <ul class="options">
+                    <li>א. אחות תאומה זהה שלוקה בסכיזופרניה.</li>
+                    <li>ב. סכיזופרניה אצל אחד ההורים.</li>
+                    <li>ג. סכיזופרניה אצל שני ההורים.</li>
+                    <li>ד. אין קשר משמעותי לסיכוי ללקות בסכיזופרניה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 23</div>
+            <div class="question-body">
+                <p class="question-text">מה משותף לזיכרון סמנטי ולזיכרון אפיזודי?</p>
+                <ul class="options">
+                    <li>א. שניהם לא דורשים משאבים קוגניטיביים.</li>
+                    <li>ב. שניהם מהווים זיכרון דקלרטיבי.</li>
+                    <li>ג. שניהם מהווים זיכרון פרוצדורלי.</li>
+                    <li>ד. שניהם מהווים מילים נרדפות לאותו הדבר.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 24</div>
+            <div class="question-body">
+                <p class="question-text">פרויד היה מאבות הטיפול הפסיכולוגי בכלל ואבי הטיפול הפסיכואנליטי בפרט עם שיטת הטיפול שלו השתנות במהלך השנים. מה נכון לומר על התפתחות הטיפול של פרויד?</p>
+                <ul class="options">
+                    <li>א. תחילה טיפל באמצעות CBT ולאחר מכן עבר לטיפול בהיפנוזה.</li>
+                    <li>ב. תחילה טיפל באמצעות היפנוזה או עבר לטפל באמצעות אסוציאציות חופשיות.</li>
+                    <li>ג. תחילה טיפל באמצעות אסוציאציות חופשיות ואז עבר לטפל באמצעות היפנוזה.</li>
+                    <li>ד. תחילה טיפל באמצעות היפנוזה ואז עבר לטפל באמצעות CBT.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 25</div>
+            <div class="question-body">
+                <p class="question-text">כיצד קרא פרויד למחלה ממנה סבלו עיקר המטופלות שלו?</p>
+                <ul class="options">
+                    <li>א. דיפתריה.</li>
+                    <li>ב. כולרה.</li>
+                    <li>ג. היסטריה.</li>
+                    <li>ד. דיסמורפיה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 26</div>
+            <div class="question-body">
+                <p class="question-text">תארו את הפניית הקשב של תינוקות בני יומם:</p>
+                <ul class="options">
+                    <li>א. תינוקות בני יומם יעדיפו צורות עם חלק עליון כהה כמו T.</li>
+                    <li>ב. תינוקות בני יומם יעדיפו צורות עם חלק תחתון כהה כמו L.</li>
+                    <li>ג. תינוקות בני יומם לא מראים העדפה לצורות מסוימות.</li>
+                    <li>ד. תשובות א-ג לא נכונות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 27</div>
+            <div class="question-body">
+                <p class="question-text">מה מהבאים לא נמצא כקשור לעלייה בסיכוי להתפתחות דיכאון?</p>
+                <ul class="options">
+                    <li>א. מעבר דירה לפני גיל 10.</li>
+                    <li>ב. אובדן בן/בת זוג.</li>
+                    <li>ג. אבטלה.</li>
+                    <li>ד. אובדן של הורה לפני גיל 11.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 28</div>
+            <div class="question-body">
+                <p class="question-text">מה לא מאפיין את ה-DSM?</p>
+                <ul class="options">
+                    <li>א. הוא מתעדכן כל מספר שנים.</li>
+                    <li>ב. הוא מקטלג את המחלות הנפשיות לפי קבוצות.</li>
+                    <li>ג. הוא כולל קריטריונים הכרחיים לאבחנה וכן קריטריונים לאבחנה מבדלת.</li>
+                    <li>ד. אף תשובה לא נכונה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 29</div>
+            <div class="question-body">
+                <p class="question-text">על פי הניסויים של מילגרם ואחרים, איזה מהדברים הבאים משפיע על מידת הציות?</p>
+                <ul class="options">
+                    <li>א. קרבה פיזית לאדם שמקבל את השוק.</li>
+                    <li>ב. סביבת הניסוי.</li>
+                    <li>ג. קרבה פיזית לנסיין שנותן את ההנחיות.</li>
+                    <li>ד. כל התשובות נכונות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 30</div>
+            <div class="question-body">
+                <p class="question-text">כאשר מתקבלות תוצאות חדשות, אשר נוגדות את התיאוריה, מה עלינו לעשות?</p>
+                <ul class="options">
+                    <li>א. לעדכן את התיאוריה.</li>
+                    <li>ב. להתעלם מהתוצאות החדשות.</li>
+                    <li>ג. לפעול לפי האינטואיציה.</li>
+                    <li>ד. אף תשובה לא נכונה.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 31 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 31</div>
+            <div class="question-body">
+                <p class="question-text">איזה מצב יצור ניסוי בו לנבדקים יש 50% גנטיקה משותפת, ו-0% סביבה משותפת?</p>
+                <ul class="options">
+                    <li>א. תאומים לא זהים שהופרדו בלידתם.</li>
+                    <li>ב. תאומים לא זהים שגדלו יחדיו עד גיל ההתבגרות.</li>
+                    <li>ג. תאומים זהים שהופרדו בלידתם.</li>
+                    <li>ד. תאומים זהים שגדלו יחדיו.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 32 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 32</div>
+            <div class="question-body">
+                <p class="question-text">במשימת dichotic listening משמיעים לאנשים בכל אוזן מידע שונה, ומבקשים מהם להפנות את הקשב רק לאוזן אחת. איזה מידע יעבור עיבוד מודע, גם מהצד הלא קשוב?</p>
+                <ul class="options">
+                    <li>א. קשב לא דרוש לעיבוד מודע ולכן כל המידע יעבור עיבוד גבוהה.</li>
+                    <li>ב. הסינון הוא מוחלט ושום מידע לא יעבור עיבוד.</li>
+                    <li>ג. השם שלי, מידע בעל קשר סמנטי לאוזן הקשובה ומידע שאני מצפה לשמוע.</li>
+                    <li>ד. רק השם שלי יכול לעבור עיבוד גם מהצד הלא קשוב.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 33 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 33</div>
+            <div class="question-body">
+                <p class="question-text">לפניך 2 גרפים המתארים את מצב הרוח (חיובי/שלילי), על פי משך של שנה. התאם/י את מהלך הגרף למהלך הפסיכופתולוגיה המתאימה, כאשר 0 מייצג מצב רוח ניטרלי.</p>
+                <p class="question-text" style="margin-top: 8px;"><strong>גרף א:</strong> גרף שמראה תנודות קיצוניות - עולה לערכים חיוביים גבוהים ויורד לערכים שליליים נמוכים במחזוריות.</p>
+                <p class="question-text"><strong>גרף ב:</strong> גרף שמראה בעיקר ערכים שליליים, עם תנודות בין 0 לערכים שליליים.</p>
+                <ul class="options">
+                    <li>א. א - OCD, ב - דיכאון מאז'ורי.</li>
+                    <li>ב. א - דיכאון מאז'ורי, ב - הפרעה דו-קוטבית.</li>
+                    <li>ג. א - סכיזופרניה, ב - OCD.</li>
+                    <li>ד. א - הפרעה דו קוטבית, ב - PTSD.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 34 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 34</div>
+            <div class="question-body">
+                <p class="question-text">מבחן בינה לאינטליגנציה חישב את היחס בין הגיל המנטלי של הילד לגיל הכרונולוגי שלו, ואפשר איתור ילדים עם מנת משכל נמוכה. לאחר מכן המבחן שודרג, והמבחן החדש נקרא מבחן סטנפורד-בינה. במה נבדל המבחן החדש מהמבחן הקודם?</p>
+                <ul class="options">
+                    <li>א. הוא אפשר לאתר גם ילדים מחוננים.</li>
+                    <li>ב. בשיטת חישוב הציון.</li>
+                    <li>ג. במדד לאינטליגנציה רגשית.</li>
+                    <li>ד. א+ב.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Question 35 -->
+        <div class="question-section">
+            <div class="question-header">שאלה 35</div>
+            <div class="question-body">
+                <p class="question-text">מדוע פוביה מגירוי מסוים יכולה לחזור למרות הטיפול, וכיצד נקרא התהליך בו המטופלת לומדת על האפשרות שזה יקרה?</p>
+                <ul class="options">
+                    <li>א. בגלל פיזור אחריות, וניתן ללמד זאת על ידי חשיפת הטיות.</li>
+                    <li>ב. בגלל החלמה ספונטנית, ואפשר ללמד זאת על ידי פסיכו-אדוקציה.</li>
+                    <li>ג. בגלל פיזור אחריות, וניתן ללמד זאת על ידי פסיכו-אדוקציה.</li>
+                    <li>ד. בגלל הטיית האישוש, וניתן ללמד זאת על ידי חשיפת הטיות.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Answers Section -->
+        <section class="answers-section">
+            <div class="answers-header">📝 תשובות נכונות</div>
+
+            <div class="answer-item">
+                <h3>שאלה 1</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">כדי להיות חוקר או מטפל פסיכולוגי טוב יש להסתמך כמה שיותר על השיטה המדעית, אך גם לנקוט ביצירתיות ובביקורתיות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 2</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">המטופל משתמש במילים מומצאות (נאולוגיזמים) ומפגין חסימה - אלה סימנים של הפרעה בארגון החשיבה בסכיזופרניה.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 3</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">לפי מודל ההומונקולוס, לכל איבר יש אזור תואם במוח, ואיברים בעלי תפקוד מדויק יותר זוכים לשטח יחסי גדול יותר.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 4</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">השלב הפוסט-סנסורי אינו קיים בתיאוריה של פיאז'ה. השלבים הם: סנסורי-מוטורי, פרה-אופרציונלי, אופרציונלי-קונקרטי, ואופרציונלי-פורמאלי.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 5</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">לפי תופעת ההקלה החברתית (Social Facilitation), נוכחות קהל משפרת ביצועים במשימות מוכרות ופוגעת במשימות חדשות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 6</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">לפי תיאוריית התכונות (Trait Theory), תכונות הן היחידות האישיותיות הבסיסיות, ויש אפשרות למדוד את רמתן.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 7</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">אריאה הפגינה קונפורמיות אינפורמטיבית (הסכימה כי לא הייתה בטוחה), ועזרא הפגין קונפורמיות נורמטיבית (פחד ממה שיחשבו עליו).</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 8</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">מבחן רורשאך הוא מבחן השלכתי (projective test) שמשמש לאבחון פסיכולוגי באמצעות כתמי דיו.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 9</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">לפי מודל תוכן הסטראוטיפים, אנשים שנתפסים כלא נחמדים אבל בעלי יכולות גבוהים הם גבוהים בקומפטנטיות ונמוכים בחברתיות-מוסריות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 10</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">אינטליגנציה רגשית גבוהה קשורה להצלחה בלימודים, מערכות יחסים טובות, והתמודדות טובה עם לחץ - לכן כל התשובות א-ג שגויות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 11</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">לאבחון הפרעת פאניקה נדרש חשש מתמשך מהתקף נוסף או שינוי בהתנהגות בעקבות ההתקף.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 12</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">כל התשובות נכונות - הטיות סובייקטיביות, דעות קדומות וציפיות אישיות כולן יכולות להשפיע לרעה על המחקר.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 13</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">הגישה ההומניסטית מתמקדת בשאלה מהם הצרכים הבסיסיים של האדם וכיצד האדם ממש את יכולותיו (מימוש עצמי).</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 14</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">למידה מוגדרת כשינוי קבוע יחסית בהתנהגות או בסיכוי לביצוע התנהגות בעקבות התנסות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 15</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">הטיה קוגניטיבית בדיכאון היא שאנשים הסובלים מדיכאון מתקשים להיזכר באירועים משמחים (פילטר שלילי).</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 16</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">כל התשובות נכונות - נזק לרקמה במוח, נטייה גנטית ואבנורמליות מבנית במוח כולם יכולים לגרום להפרעות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 17</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">המשפט מתאר עובדה כללית (ידע על ספר) - זהו זיכרון סמנטי (ידע כללי על העולם).</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 18</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">כדי להפחית הטיות מסטראוטיפים יש לנסות להבין אילו הטיות יש לנו ולהיות מודעים אליהן.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 19</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">סכיזופרניה (Schizo=פיצול, Phrenia=נפש/מיינד) מתורגמת כ"פיצול המיינד".</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 20</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">האיד (Id) לפי פרויד מתואר כיצרי, חייתי, ומחפש סיפוקים מיידיים.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 21</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">המחשבה שהשכנים מנסים לחטוף אותה היא דלוזיה (מחשבת שווא) - זו הפרעה בתוכן החשיבה.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 22</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">אחות תאומה זהה שלוקה בסכיזופרניה מעלה הכי הרבה את הסיכוי (כ-50%) כי תאומים זהים חולקים 100% גנטיקה.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 23</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">זיכרון סמנטי וזיכרון אפיזודי שניהם זיכרון דקלרטיבי (מפורש) - ידע שאפשר להצהיר עליו במילים.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 24</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">פרויד תחילה טיפל בהיפנוזה ואחר כך עבר לאסוציאציות חופשיות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 25</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">פרויד קרא למחלה היסטריה - מקבץ סימפטומים פיזיולוגיים ללא בסיס אנטומי.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 26</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">תינוקות בני יומם מעדיפים צורות עם חלק עליון כהה (כמו T) - זה מזכיר פנים אנושיות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 27</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">מעבר דירה לפני גיל 10 לא נמצא כגורם סיכון לדיכאון. אובדן בן זוג, אבטלה ואובדן הורה בילדות כולם גורמי סיכון מוכרים.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 28</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">אף תשובה לא נכונה - כל המאפיינים המוזכרים כן מאפיינים את ה-DSM.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 29</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">כל התשובות נכונות - ניסויי מילגרם הראו שכל הגורמים הללו משפיעים על ציות.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 30</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">כשתוצאות חדשות נוגדות תיאוריה, יש לעדכן את התיאוריה. זו השיטה המדעית.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 31</h3>
+                <span class="correct">תשובה: א</span>
+                <p class="explanation">תאומים לא זהים שהופרדו בלידתם - 50% גנטיקה משותפת ו-0% סביבה משותפת.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 32</h3>
+                <span class="correct">תשובה: ג</span>
+                <p class="explanation">מהצד הלא קשוב יעבור עיבוד: השם שלי, מידע בעל קשר סמנטי לאוזן הקשובה, ומידע שאני מצפה לשמוע.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 33</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">גרף א (תנודות קיצוניות) = דיכאון מאז'ורי, גרף ב (בעיקר שליליים) = הפרעה דו-קוטבית.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 34</h3>
+                <span class="correct">תשובה: ד</span>
+                <p class="explanation">מבחן סטנפורד-בינה השתפר בשני דברים: א+ב - גם אפשר לאתר ילדים מחוננים וגם שינוי בשיטת חישוב הציון.</p>
+            </div>
+
+            <div class="answer-item">
+                <h3>שאלה 35</h3>
+                <span class="correct">תשובה: ב</span>
+                <p class="explanation">פוביה יכולה לחזור בגלל החלמה ספונטנית, והמטופל לומד על זה באמצעות פסיכו-אדוקציה.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>האתר נוצר לאלי שטייניץ ב-<span class="love">❤️</span></p>
+        </div>
+    </footer>
+</body>
+</html>
