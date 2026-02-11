@@ -103,6 +103,20 @@ const Analytics = (function() {
     }
 
     /**
+     * Detect device type from user agent
+     */
+    function detectDeviceType() {
+        const ua = navigator.userAgent.toLowerCase();
+        if (/ipad|tablet|playbook|silk|(android(?!.*mobi))/i.test(navigator.userAgent)) {
+            return 'tablet';
+        }
+        if (/mobile|iphone|ipod|android.*mobile|webos|blackberry|opera mini|iemobile/i.test(ua)) {
+            return 'mobile';
+        }
+        return 'desktop';
+    }
+
+    /**
      * Get or create user based on device fingerprint
      */
     async function getOrCreateUser() {
@@ -127,11 +141,13 @@ const Analytics = (function() {
         if (existing && existing.length > 0) {
             userId = existing[0].id;
         } else {
-            // Create new user
+            // Create new user with device type
             const animalName = generateAnimalName();
+            const deviceType = detectDeviceType();
             const created = await supabaseRequest('users', 'POST', {
                 device_fingerprint: fingerprint,
-                animal_name: animalName
+                animal_name: animalName,
+                device_type: deviceType
             });
             if (created && created.length > 0) {
                 userId = created[0].id;

@@ -340,6 +340,7 @@
                     <thead>
                         <tr>
                             <th>שם</th>
+                            <th>מכשיר</th>
                             <th>תאריך הצטרפות</th>
                             <th>פעילות אחרונה</th>
                             <th>מבחנים</th>
@@ -347,7 +348,7 @@
                         </tr>
                     </thead>
                     <tbody id="users-names-list">
-                        <tr><td colspan="5" class="loading">טוען...</td></tr>
+                        <tr><td colspan="6" class="loading">טוען...</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -763,10 +764,12 @@
                 const avgScore = stats.quizCount > 0 ? Math.round(stats.totalScore / stats.quizCount) : '-';
                 const displayName = u.display_name || u.animal_name;
                 const subtitle = u.display_name ? `(${u.animal_name})` : '';
+                const deviceIcon = getDeviceIcon(u.device_type);
 
                 return `
                     <tr>
                         <td><span class="user-name">${displayName}</span> <span class="user-name-subtitle">${subtitle}</span></td>
+                        <td>${deviceIcon}</td>
                         <td>${formatDate(u.created_at)}</td>
                         <td>${lastActivity[u.id] ? formatDate(lastActivity[u.id]) : '-'}</td>
                         <td>${stats.quizCount}</td>
@@ -774,6 +777,15 @@
                     </tr>
                 `;
             }).join('');
+        }
+
+        function getDeviceIcon(deviceType) {
+            const icons = {
+                'mobile': '📱',
+                'tablet': '📱',
+                'desktop': '💻'
+            };
+            return icons[deviceType] || '❓';
         }
 
         async function loadDifficultQuestions() {
