@@ -38,12 +38,27 @@ class Homepage {
                 if (window.Analytics && window.Analytics.updateUserName) {
                     window.Analytics.updateUserName(name);
                 }
+                // Show tip modal after name modal
+                this.showTipModal();
             }
         };
 
         submitBtn.addEventListener('click', submitName);
         input.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') submitName();
+        });
+    }
+
+    showTipModal() {
+        const modal = document.getElementById('tip-modal');
+        const closeBtn = document.getElementById('tip-modal-close');
+
+        if (!modal) return;
+
+        modal.style.display = 'flex';
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
         });
     }
 

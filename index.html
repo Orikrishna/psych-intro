@@ -292,6 +292,22 @@
         </div>
     </div>
 
+    <!-- Tip Modal -->
+    <div id="tip-modal" class="welcome-modal" style="display: none;">
+        <div class="welcome-modal__backdrop"></div>
+        <div class="welcome-modal__content tip-modal__content">
+            <div class="tip-modal__emoji">☕</div>
+            <h2 class="welcome-modal__title">רוצה לפרגן?</h2>
+            <p class="tip-modal__text">
+                באתר הזה הושקעו הרבה שעות ולא מעט כסף כדי לבנות אותו.
+                <br><br>
+                אם בא לך לקנות לי קפה או לפרגן טיפ, אפשר להעביר 15-20 ש״ח בביט למספר:
+            </p>
+            <div class="tip-modal__number">054-4532670</div>
+            <button id="tip-modal-close" class="welcome-modal__button">תודה, הבנתי!</button>
+        </div>
+    </div>
+
     <style>
         .welcome-modal {
             position: fixed;
@@ -358,6 +374,29 @@
         .welcome-modal__button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(45, 125, 70, 0.4);
+        }
+        .tip-modal__content {
+            max-width: 450px;
+        }
+        .tip-modal__emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        .tip-modal__text {
+            font-size: 16px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .tip-modal__number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d7d46;
+            background: #f0fdf4;
+            padding: 12px 24px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            direction: ltr;
         }
     </style>
 
