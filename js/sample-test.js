@@ -146,6 +146,7 @@ class SampleTestApp {
     showQuestion() {
         const question = this.currentQuestions[this.currentIndex];
         this.answered = false;
+        this.questionStartTime = Date.now(); // Track time for analytics
 
         // Update progress
         const progress = ((this.currentIndex) / this.currentQuestions.length) * 100;
@@ -180,6 +181,20 @@ class SampleTestApp {
 
         const question = this.currentQuestions[this.currentIndex];
         const isCorrect = selectedIndex === question.correct;
+        const timeToAnswer = Date.now() - this.questionStartTime;
+
+        // Track this answer in analytics
+        if (window.Analytics?.trackQuestionAnswer) {
+            Analytics.trackQuestionAnswer(
+                'sample',
+                this.currentMode,
+                this.currentIndex,
+                question,
+                selectedIndex,
+                isCorrect,
+                timeToAnswer
+            );
+        }
 
         // Update score and track wrong answers
         if (isCorrect) {

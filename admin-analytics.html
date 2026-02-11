@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,189 +15,17 @@
         }
 
         .analytics-header {
-            margin-bottom: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
         }
 
         .analytics-header h1 {
             color: var(--color-primary);
-            margin-bottom: var(--space-sm);
-        }
-
-        .analytics-header p {
-            color: var(--color-text-secondary);
-        }
-
-        .stats-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-lg);
-            margin-bottom: var(--space-2xl);
-        }
-
-        .stat-box {
-            background: var(--color-bg-card);
-            border-radius: var(--radius-xl);
-            padding: var(--space-xl);
-            text-align: center;
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-box__value {
-            font-size: 2.5rem;
-            font-weight: var(--font-weight-bold);
-            color: var(--color-primary);
-            display: block;
-        }
-
-        .stat-box__label {
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-        }
-
-        .analytics-section {
-            background: var(--color-bg-card);
-            border-radius: var(--radius-xl);
-            padding: var(--space-xl);
-            margin-bottom: var(--space-xl);
-            box-shadow: var(--shadow-md);
-        }
-
-        .analytics-section h2 {
-            color: var(--color-primary-dark);
-            margin-bottom: var(--space-lg);
-            font-size: var(--font-size-xl);
-            border-bottom: 2px solid var(--color-bg-mint);
-            padding-bottom: var(--space-sm);
-        }
-
-        .users-list {
-            display: grid;
-            gap: var(--space-md);
-        }
-
-        .user-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--space-md) var(--space-lg);
-            background: var(--color-bg-cream);
-            border-radius: var(--radius-lg);
-            border-left: 4px solid var(--color-primary);
-        }
-
-        .user-card__name {
-            font-weight: var(--font-weight-semibold);
-            color: var(--color-text-primary);
-        }
-
-        .user-card__meta {
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-        }
-
-        .user-card__stats {
-            display: flex;
-            gap: var(--space-lg);
-            font-size: var(--font-size-sm);
-        }
-
-        .user-card__stat {
-            text-align: center;
-        }
-
-        .user-card__stat-value {
-            font-weight: var(--font-weight-bold);
-            color: var(--color-primary);
-        }
-
-        .events-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .events-table th,
-        .events-table td {
-            padding: var(--space-md);
-            text-align: left;
-            border-bottom: 1px solid var(--color-bg-cream);
-        }
-
-        .events-table th {
-            background: var(--color-bg-cream);
-            font-weight: var(--font-weight-semibold);
-            color: var(--color-primary-dark);
-        }
-
-        .events-table tr:hover {
-            background: var(--color-bg-cream);
-        }
-
-        .event-type {
-            display: inline-block;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-md);
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-medium);
-        }
-
-        .event-type--page_view { background: #dbeafe; color: #1d4ed8; }
-        .event-type--quiz_complete { background: #dcfce7; color: #16a34a; }
-        .event-type--flashcard_session { background: #fef3c7; color: #d97706; }
-        .event-type--video_watch { background: #fee2e2; color: #dc2626; }
-
-        .score-badge {
-            display: inline-block;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-md);
-            font-weight: var(--font-weight-bold);
-        }
-
-        .score-badge--high { background: #dcfce7; color: #16a34a; }
-        .score-badge--medium { background: #fef3c7; color: #d97706; }
-        .score-badge--low { background: #fee2e2; color: #dc2626; }
-
-        .quiz-type-badge {
-            display: inline-block;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-md);
-            font-size: var(--font-size-sm);
-        }
-
-        .quiz-type-badge--online { background: #dbeafe; color: #1d4ed8; }
-        .quiz-type-badge--frontal { background: #f3e8ff; color: #7c3aed; }
-        .quiz-type-badge--sample { background: #fce7f3; color: #be185d; }
-
-        .user-scores-list {
-            margin-top: var(--space-sm);
-            padding-top: var(--space-sm);
-            border-top: 1px solid var(--color-bg-cream);
-            font-size: var(--font-size-sm);
-        }
-
-        .user-score-item {
-            display: inline-block;
-            margin: var(--space-xs);
-            padding: var(--space-xs) var(--space-sm);
-            background: var(--color-bg-cream);
-            border-radius: var(--radius-sm);
-        }
-
-        .user-card--expanded {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .user-card__header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .loading {
-            text-align: center;
-            padding: var(--space-2xl);
-            color: var(--color-text-secondary);
+            margin: 0;
         }
 
         .refresh-btn {
@@ -215,127 +43,415 @@
             background: var(--color-primary-dark);
         }
 
-        .page-stats {
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            border-bottom: 2px solid var(--color-bg-cream);
+            padding-bottom: var(--space-sm);
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            font-family: inherit;
+            font-size: var(--font-size-base);
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background: var(--color-bg-cream);
+        }
+
+        .tab.active {
+            background: var(--color-primary);
+            color: white;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Stats Overview */
+        .stats-overview {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--space-md);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
         }
 
-        .page-stat {
-            background: var(--color-bg-cream);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
+        .stat-box {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
             text-align: center;
+            box-shadow: var(--shadow-md);
         }
 
-        .page-stat__name {
-            font-size: var(--font-size-sm);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-xs);
-        }
-
-        .page-stat__count {
-            font-size: var(--font-size-xl);
+        .stat-box__value {
+            font-size: 2rem;
             font-weight: var(--font-weight-bold);
             color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-box__label {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Analytics Section */
+        .analytics-section {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .analytics-section h2 {
+            color: var(--color-primary-dark);
+            margin-bottom: var(--space-lg);
+            font-size: var(--font-size-xl);
+            border-bottom: 2px solid var(--color-bg-mint);
+            padding-bottom: var(--space-sm);
+        }
+
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+            gap: 4px;
+            padding: 10px 0;
+            direction: ltr;
+        }
+
+        .bar-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 30px;
+            background: var(--color-primary);
+            border-radius: 4px 4px 0 0;
+            min-height: 2px;
+            transition: height 0.3s ease;
+        }
+
+        .bar-label {
+            font-size: 10px;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+
+        .bar-count {
+            font-size: 9px;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        /* Tools Ranking */
+        .tool-row {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--color-bg-cream);
+        }
+
+        .tool-row:last-child {
+            border-bottom: none;
+        }
+
+        .tool-rank {
+            font-weight: bold;
+            color: var(--color-primary);
+            width: 40px;
+            font-size: var(--font-size-lg);
+        }
+
+        .tool-name {
+            flex: 1;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .tool-count {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Events Table */
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .events-table th,
+        .events-table td {
+            padding: var(--space-md);
+            text-align: right;
+            border-bottom: 1px solid var(--color-bg-cream);
+        }
+
+        .events-table th {
+            background: var(--color-bg-cream);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+        }
+
+        .events-table tr:hover {
+            background: var(--color-bg-cream);
+        }
+
+        /* Score Badges */
+        .score-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+        }
+
+        .score-badge--high { background: #dcfce7; color: #16a34a; }
+        .score-badge--medium { background: #fef3c7; color: #d97706; }
+        .score-badge--low { background: #fee2e2; color: #dc2626; }
+
+        /* Quiz Type Badge */
+        .quiz-type-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+        }
+
+        .quiz-type-badge--online { background: #dbeafe; color: #1d4ed8; }
+        .quiz-type-badge--frontal { background: #f3e8ff; color: #7c3aed; }
+        .quiz-type-badge--sample { background: #fce7f3; color: #be185d; }
+
+        /* User Name */
+        .user-name {
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .user-name-subtitle {
+            font-weight: normal;
+            color: var(--color-text-secondary);
+            font-size: 0.85em;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--color-text-secondary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-2xl);
+            color: var(--color-text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .analytics-container {
+                padding: var(--space-md);
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                flex: 1;
+                min-width: 80px;
+                text-align: center;
+                padding: var(--space-sm);
+            }
+
+            .events-table {
+                font-size: var(--font-size-sm);
+            }
+
+            .events-table th,
+            .events-table td {
+                padding: var(--space-sm);
+            }
         }
     </style>
 </head>
 <body>
     <div class="analytics-container">
         <header class="analytics-header">
-            <h1>Analytics Dashboard</h1>
-            <p>Site usage statistics and visitor tracking</p>
-            <button class="refresh-btn" onclick="loadAllData()">Refresh Data</button>
+            <h1>📊 לוח בקרה</h1>
+            <button class="refresh-btn" onclick="loadAllData()">🔄 רענן</button>
         </header>
 
-        <!-- Overview Stats -->
-        <div class="stats-overview">
-            <div class="stat-box">
-                <span class="stat-box__value" id="total-users">-</span>
-                <span class="stat-box__label">Total Visitors</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-box__value" id="total-sessions">-</span>
-                <span class="stat-box__label">Total Sessions</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-box__value" id="total-quizzes">-</span>
-                <span class="stat-box__label">Quizzes Completed</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-box__value" id="avg-score">-</span>
-                <span class="stat-box__label">Average Quiz Score</span>
-            </div>
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab active" data-tab="overview">סקירה</button>
+            <button class="tab" data-tab="users">משתמשים</button>
+            <button class="tab" data-tab="questions">שאלות</button>
+            <button class="tab" data-tab="activity">פעילות</button>
         </div>
 
-        <!-- Page Views -->
-        <section class="analytics-section">
-            <h2>Page Views</h2>
-            <div class="page-stats" id="page-stats">
-                <div class="loading">Loading...</div>
+        <!-- Tab 1: Overview -->
+        <div class="tab-content active" id="overview-tab">
+            <!-- Stats Row -->
+            <div class="stats-overview">
+                <div class="stat-box">
+                    <span class="stat-box__value" id="total-users">-</span>
+                    <span class="stat-box__label">משתמשים</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box__value" id="total-sessions">-</span>
+                    <span class="stat-box__label">סשנים</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box__value" id="avg-session-length">-</span>
+                    <span class="stat-box__label">ממוצע סשן (דק׳)</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box__value" id="total-quizzes">-</span>
+                    <span class="stat-box__label">מבחנים</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box__value" id="avg-score">-</span>
+                    <span class="stat-box__label">ציון ממוצע</span>
+                </div>
             </div>
-        </section>
 
-        <!-- Users List with Scores -->
-        <section class="analytics-section">
-            <h2>Visitors & Their Scores</h2>
-            <div class="users-list" id="users-list">
-                <div class="loading">Loading...</div>
-            </div>
-        </section>
+            <!-- Users Per Hour Graph -->
+            <section class="analytics-section">
+                <h2>פעילות לפי שעה</h2>
+                <div id="hourly-chart" class="bar-chart">
+                    <div class="loading">טוען...</div>
+                </div>
+            </section>
 
-        <!-- Detailed Scores Table -->
-        <section class="analytics-section">
-            <h2>All Quiz Scores</h2>
-            <table class="events-table">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Visitor</th>
-                        <th>Quiz Type</th>
-                        <th>Lesson</th>
-                        <th>Score</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody id="scores-list">
-                    <tr><td colspan="6" class="loading">Loading...</td></tr>
-                </tbody>
-            </table>
-        </section>
+            <!-- Top Tools -->
+            <section class="analytics-section">
+                <h2>כלים פופולריים</h2>
+                <div id="tools-ranking">
+                    <div class="loading">טוען...</div>
+                </div>
+            </section>
+        </div>
 
-        <!-- Recent Events -->
-        <section class="analytics-section">
-            <h2>Recent Activity</h2>
-            <table class="events-table">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Visitor</th>
-                        <th>Event</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody id="events-list">
-                    <tr><td colspan="4" class="loading">Loading...</td></tr>
-                </tbody>
-            </table>
-        </section>
+        <!-- Tab 2: Users (Names List) -->
+        <div class="tab-content" id="users-tab">
+            <section class="analytics-section">
+                <h2>רשימת משתמשים</h2>
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>שם</th>
+                            <th>תאריך הצטרפות</th>
+                            <th>פעילות אחרונה</th>
+                            <th>מבחנים</th>
+                            <th>ציון ממוצע</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-names-list">
+                        <tr><td colspan="5" class="loading">טוען...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- Tab 3: Questions (Difficult Questions) -->
+        <div class="tab-content" id="questions-tab">
+            <section class="analytics-section">
+                <h2>שאלות קשות</h2>
+                <p style="color: var(--color-text-secondary); margin-bottom: 16px;">שאלות עם אחוז השגיאה הגבוה ביותר (מינימום 3 ניסיונות)</p>
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>שאלה</th>
+                            <th>סוג</th>
+                            <th>שיעור</th>
+                            <th>ניסיונות</th>
+                            <th>אחוז שגיאה</th>
+                        </tr>
+                    </thead>
+                    <tbody id="difficult-questions-list">
+                        <tr><td colspan="5" class="loading">טוען...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- Tab 4: Recent Activity -->
+        <div class="tab-content" id="activity-tab">
+            <section class="analytics-section">
+                <h2>כל תוצאות המבחנים</h2>
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>זמן</th>
+                            <th>משתמש</th>
+                            <th>סוג</th>
+                            <th>שיעור</th>
+                            <th>ציון</th>
+                            <th>אחוז</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scores-list">
+                        <tr><td colspan="6" class="loading">טוען...</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
     </div>
 
     <script>
         const SUPABASE_URL = 'https://tbcgkmuucjxynibokxuo.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_5sWPOX0LvUKSCDsXjmCWBA_xzbKfFo-';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiY2drbXV1Y2p4eW5pYm9reHVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMjQxODEsImV4cCI6MjA4NTcwMDE4MX0.oGYJoFlzIaFGehfC7gf0O0VK0y2_HJjISwQXUmUEbOU';
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab + '-tab').classList.add('active');
+            });
+        });
 
         async function supabaseGet(endpoint) {
-            const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                if (!response.ok) {
+                    console.warn('Supabase request failed:', response.status);
+                    return [];
                 }
-            });
-            return response.json();
+                return response.json();
+            } catch (e) {
+                console.error('Supabase error:', e);
+                return [];
+            }
         }
 
         function formatDate(dateStr) {
@@ -348,34 +464,6 @@
             });
         }
 
-        function formatEventType(type) {
-            const labels = {
-                'page_view': 'Page View',
-                'page_exit': 'Page Exit',
-                'quiz_complete': 'Quiz Complete',
-                'flashcard_session': 'Flashcards',
-                'video_watch': 'Video Watch'
-            };
-            return labels[type] || type;
-        }
-
-        function formatEventData(type, data) {
-            if (!data) return '-';
-            switch (type) {
-                case 'page_view':
-                case 'page_exit':
-                    return data.page + (data.duration_seconds ? ` (${data.duration_seconds}s)` : '');
-                case 'quiz_complete':
-                    return `${data.lesson}: ${data.score}/${data.total} (${data.percentage}%)`;
-                case 'flashcard_session':
-                    return `${data.cards_reviewed} reviewed, ${data.cards_known} known`;
-                case 'video_watch':
-                    return data.lesson_name;
-                default:
-                    return JSON.stringify(data);
-            }
-        }
-
         function getScoreBadgeClass(percentage) {
             if (percentage >= 70) return 'score-badge--high';
             if (percentage >= 50) return 'score-badge--medium';
@@ -384,11 +472,11 @@
 
         function getQuizTypeLabel(type) {
             const labels = {
-                'online': 'שיעורים מקוונים',
-                'frontal': 'שיעורים פרונטליים',
-                'sample': 'מבחן לדוגמא'
+                'online': 'מקוון',
+                'frontal': 'פרונטלי',
+                'sample': 'לדוגמא'
             };
-            return labels[type] || type;
+            return labels[type] || type || 'לא ידוע';
         }
 
         async function loadAllData() {
@@ -396,128 +484,33 @@
             const users = await supabaseGet('users?select=*&order=created_at.desc');
             document.getElementById('total-users').textContent = users.length;
 
-            // Load ALL events (not just 50) to get complete user stats
-            const allEvents = await supabaseGet('events?select=*,users(animal_name)&order=created_at.desc');
-
-            // Group quiz scores by user
-            const userScores = {};
-            allEvents.filter(e => e.event_type === 'quiz_complete').forEach(event => {
-                const userName = event.users?.animal_name || 'Unknown';
-                if (!userScores[userName]) {
-                    userScores[userName] = [];
-                }
-                userScores[userName].push({
-                    type: event.event_data?.quiz_type || 'unknown',
-                    lesson: event.event_data?.lesson || '-',
-                    score: event.event_data?.score || 0,
-                    total: event.event_data?.total || 0,
-                    percentage: event.event_data?.percentage || 0,
-                    date: event.created_at
-                });
-            });
-
-            // Count flashcard sessions per user
-            const userFlashcards = {};
-            allEvents.filter(e => e.event_type === 'flashcard_session').forEach(event => {
-                const userName = event.users?.animal_name || 'Unknown';
-                if (!userFlashcards[userName]) {
-                    userFlashcards[userName] = { sessions: 0, reviewed: 0, known: 0 };
-                }
-                userFlashcards[userName].sessions++;
-                userFlashcards[userName].reviewed += event.event_data?.cards_reviewed || 0;
-                userFlashcards[userName].known += event.event_data?.cards_known || 0;
-            });
-
-            const usersList = document.getElementById('users-list');
-            if (users.length === 0) {
-                usersList.innerHTML = '<p class="loading">No visitors yet</p>';
-            } else {
-                usersList.innerHTML = users.map(user => {
-                    const scores = userScores[user.animal_name] || [];
-                    const flashcards = userFlashcards[user.animal_name] || { sessions: 0, reviewed: 0, known: 0 };
-                    const avgScore = scores.length > 0
-                        ? Math.round(scores.reduce((sum, s) => sum + s.percentage, 0) / scores.length)
-                        : null;
-
-                    const scoresHtml = scores.length > 0
-                        ? `<div class="user-scores-list">
-                            <strong>Quiz Scores:</strong>
-                            ${scores.slice(0, 10).map(s => `
-                                <span class="user-score-item">
-                                    <span class="quiz-type-badge quiz-type-badge--${s.type}">${getQuizTypeLabel(s.type)}</span>
-                                    ${s.lesson}:
-                                    <span class="score-badge ${getScoreBadgeClass(s.percentage)}">${s.score}/${s.total} (${s.percentage}%)</span>
-                                </span>
-                            `).join('')}
-                            ${scores.length > 10 ? `<em>+${scores.length - 10} more...</em>` : ''}
-                           </div>`
-                        : '';
-
-                    const flashcardsHtml = flashcards.sessions > 0
-                        ? `<div class="user-scores-list">
-                            <strong>Flashcards:</strong> ${flashcards.sessions} sessions, ${flashcards.reviewed} reviewed, ${flashcards.known} marked known
-                           </div>`
-                        : '';
-
-                    return `
-                        <div class="user-card user-card--expanded">
-                            <div class="user-card__header">
-                                <div>
-                                    <div class="user-card__name">${user.animal_name}</div>
-                                    <div class="user-card__meta">First visit: ${formatDate(user.created_at)}</div>
-                                </div>
-                                <div class="user-card__stats">
-                                    <div class="user-card__stat">
-                                        <div class="user-card__stat-value">${scores.length}</div>
-                                        <div>quizzes</div>
-                                    </div>
-                                    ${avgScore !== null ? `
-                                    <div class="user-card__stat">
-                                        <div class="user-card__stat-value">${avgScore}%</div>
-                                        <div>avg score</div>
-                                    </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-                            ${scoresHtml}
-                            ${flashcardsHtml}
-                        </div>
-                    `;
-                }).join('');
-            }
-
             // Load sessions
             const sessions = await supabaseGet('sessions?select=*');
             document.getElementById('total-sessions').textContent = sessions.length;
 
-            // Use already loaded events
-            const events = allEvents;
+            // Calculate average session length
+            let totalDuration = 0;
+            let sessionsWithDuration = 0;
+            sessions.forEach(s => {
+                if (s.started_at && s.ended_at) {
+                    const duration = (new Date(s.ended_at) - new Date(s.started_at)) / 1000 / 60;
+                    if (duration > 0 && duration < 180) {
+                        totalDuration += duration;
+                        sessionsWithDuration++;
+                    }
+                }
+            });
+            const avgMinutes = sessionsWithDuration > 0 ? Math.round(totalDuration / sessionsWithDuration) : 0;
+            document.getElementById('avg-session-length').textContent = avgMinutes;
 
-            // Count quiz completions and calculate average
-            const quizEvents = events.filter(e => e.event_type === 'quiz_complete');
+            // Load ALL events
+            const allEvents = await supabaseGet('events?select=*,users(animal_name,display_name)&order=created_at.desc');
 
-            // Populate scores table
-            const scoresList = document.getElementById('scores-list');
-            if (quizEvents.length === 0) {
-                scoresList.innerHTML = '<tr><td colspan="6" class="loading">No quiz scores yet</td></tr>';
-            } else {
-                scoresList.innerHTML = quizEvents.map(event => {
-                    const data = event.event_data || {};
-                    const percentage = data.percentage || 0;
-                    return `
-                        <tr>
-                            <td>${formatDate(event.created_at)}</td>
-                            <td><strong>${event.users?.animal_name || 'Unknown'}</strong></td>
-                            <td><span class="quiz-type-badge quiz-type-badge--${data.quiz_type || 'unknown'}">${getQuizTypeLabel(data.quiz_type)}</span></td>
-                            <td>${data.lesson || '-'}</td>
-                            <td>${data.score || 0}/${data.total || 0}</td>
-                            <td><span class="score-badge ${getScoreBadgeClass(percentage)}">${percentage}%</span></td>
-                        </tr>
-                    `;
-                }).join('');
-            }
+            // Quiz events
+            const quizEvents = allEvents.filter(e => e.event_type === 'quiz_complete');
             document.getElementById('total-quizzes').textContent = quizEvents.length;
 
+            // Average quiz score
             if (quizEvents.length > 0) {
                 const avgScore = quizEvents.reduce((sum, e) => sum + (e.event_data?.percentage || 0), 0) / quizEvents.length;
                 document.getElementById('avg-score').textContent = Math.round(avgScore) + '%';
@@ -525,42 +518,187 @@
                 document.getElementById('avg-score').textContent = '-';
             }
 
-            // Page view counts
-            const pageViews = events.filter(e => e.event_type === 'page_view');
-            const pageCounts = {};
-            pageViews.forEach(e => {
-                const page = e.event_data?.page || 'unknown';
-                pageCounts[page] = (pageCounts[page] || 0) + 1;
+            // Hourly chart
+            loadHourlyChart(allEvents);
+
+            // Tools ranking
+            loadToolsRanking(allEvents);
+
+            // Users list
+            loadUsersNamesList(users, allEvents);
+
+            // Difficult questions
+            loadDifficultQuestions();
+
+            // Scores list
+            loadScoresList(quizEvents);
+        }
+
+        function loadHourlyChart(events) {
+            const hourCounts = Array(24).fill(0);
+            events.forEach(e => {
+                const hour = new Date(e.created_at).getHours();
+                hourCounts[hour]++;
             });
 
-            const pageStats = document.getElementById('page-stats');
-            const sortedPages = Object.entries(pageCounts).sort((a, b) => b[1] - a[1]);
-            if (sortedPages.length === 0) {
-                pageStats.innerHTML = '<p class="loading">No page views yet</p>';
-            } else {
-                pageStats.innerHTML = sortedPages.map(([page, count]) => `
-                    <div class="page-stat">
-                        <div class="page-stat__name">${page}</div>
-                        <div class="page-stat__count">${count}</div>
-                    </div>
-                `).join('');
+            const maxCount = Math.max(...hourCounts, 1);
+
+            document.getElementById('hourly-chart').innerHTML = hourCounts.map((count, hour) => `
+                <div class="bar-container">
+                    <div class="bar-count">${count > 0 ? count : ''}</div>
+                    <div class="bar" style="height: ${(count / maxCount) * 100}%"></div>
+                    <span class="bar-label">${hour}</span>
+                </div>
+            `).join('');
+        }
+
+        function loadToolsRanking(events) {
+            const tools = {
+                'מבחנים מקוונים': { clicks: 0, page: 'quiz.html' },
+                'מבחנים פרונטליים': { clicks: 0, page: 'full-quiz.html' },
+                'מבחן לדוגמא': { clicks: 0, page: 'sample-test.html' },
+                'כרטיסיות': { clicks: 0, page: 'flashcards.html' },
+                'סיכומים': { clicks: 0, page: 'summaries.html' },
+                'שיעורים מקוונים': { clicks: 0, page: 'online-lessons.html' },
+                'שיעורים פרונטליים': { clicks: 0, page: 'full-lessons.html' }
+            };
+
+            events.filter(e => e.event_type === 'page_view').forEach(e => {
+                const page = e.event_data?.page;
+                for (const [name, data] of Object.entries(tools)) {
+                    if (page === data.page) data.clicks++;
+                }
+            });
+
+            const sorted = Object.entries(tools)
+                .sort((a, b) => b[1].clicks - a[1].clicks)
+                .filter(([_, data]) => data.clicks > 0);
+
+            if (sorted.length === 0) {
+                document.getElementById('tools-ranking').innerHTML = '<div class="empty-state">אין נתונים עדיין</div>';
+                return;
             }
 
-            // Recent events table
-            const eventsList = document.getElementById('events-list');
-            const significantEvents = events.filter(e => e.event_type !== 'page_exit');
-            if (significantEvents.length === 0) {
-                eventsList.innerHTML = '<tr><td colspan="4" class="loading">No events yet</td></tr>';
-            } else {
-                eventsList.innerHTML = significantEvents.slice(0, 30).map(event => `
+            document.getElementById('tools-ranking').innerHTML = sorted.map(([name, data], i) => `
+                <div class="tool-row">
+                    <span class="tool-rank">#${i + 1}</span>
+                    <span class="tool-name">${name}</span>
+                    <span class="tool-count">${data.clicks} צפיות</span>
+                </div>
+            `).join('');
+        }
+
+        function loadUsersNamesList(users, allEvents) {
+            if (users.length === 0) {
+                document.getElementById('users-names-list').innerHTML = '<tr><td colspan="5" class="empty-state">אין משתמשים עדיין</td></tr>';
+                return;
+            }
+
+            // Get quiz counts and scores per user
+            const userStats = {};
+            allEvents.filter(e => e.event_type === 'quiz_complete').forEach(e => {
+                if (!userStats[e.user_id]) {
+                    userStats[e.user_id] = { quizCount: 0, totalScore: 0 };
+                }
+                userStats[e.user_id].quizCount++;
+                userStats[e.user_id].totalScore += e.event_data?.percentage || 0;
+            });
+
+            // Get last activity per user
+            const lastActivity = {};
+            allEvents.forEach(e => {
+                if (!lastActivity[e.user_id] || new Date(e.created_at) > new Date(lastActivity[e.user_id])) {
+                    lastActivity[e.user_id] = e.created_at;
+                }
+            });
+
+            document.getElementById('users-names-list').innerHTML = users.map(u => {
+                const stats = userStats[u.id] || { quizCount: 0, totalScore: 0 };
+                const avgScore = stats.quizCount > 0 ? Math.round(stats.totalScore / stats.quizCount) : '-';
+                const displayName = u.display_name || u.animal_name;
+                const subtitle = u.display_name ? `(${u.animal_name})` : '';
+
+                return `
+                    <tr>
+                        <td><span class="user-name">${displayName}</span> <span class="user-name-subtitle">${subtitle}</span></td>
+                        <td>${formatDate(u.created_at)}</td>
+                        <td>${lastActivity[u.id] ? formatDate(lastActivity[u.id]) : '-'}</td>
+                        <td>${stats.quizCount}</td>
+                        <td>${avgScore !== '-' ? `<span class="score-badge ${getScoreBadgeClass(avgScore)}">${avgScore}%</span>` : '-'}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function loadDifficultQuestions() {
+            const attempts = await supabaseGet('question_attempts?select=*');
+
+            if (attempts.length === 0) {
+                document.getElementById('difficult-questions-list').innerHTML = '<tr><td colspan="5" class="empty-state">אין נתונים על שאלות עדיין</td></tr>';
+                return;
+            }
+
+            // Group by question_id
+            const stats = {};
+            attempts.forEach(a => {
+                if (!stats[a.question_id]) {
+                    stats[a.question_id] = {
+                        text: a.question_text,
+                        lesson: a.lesson,
+                        quizType: a.quiz_type,
+                        total: 0,
+                        wrong: 0
+                    };
+                }
+                stats[a.question_id].total++;
+                if (!a.is_correct) stats[a.question_id].wrong++;
+            });
+
+            // Sort by error rate, filter minimum attempts
+            const hardest = Object.entries(stats)
+                .map(([id, d]) => ({ id, ...d, errorRate: (d.wrong / d.total) * 100 }))
+                .filter(q => q.total >= 3)
+                .sort((a, b) => b.errorRate - a.errorRate)
+                .slice(0, 20);
+
+            if (hardest.length === 0) {
+                document.getElementById('difficult-questions-list').innerHTML = '<tr><td colspan="5" class="empty-state">צריך יותר נתונים (מינימום 3 ניסיונות לשאלה)</td></tr>';
+                return;
+            }
+
+            document.getElementById('difficult-questions-list').innerHTML = hardest.map(q => `
+                <tr>
+                    <td title="${q.text || ''}">${(q.text || 'N/A').substring(0, 50)}${(q.text || '').length > 50 ? '...' : ''}</td>
+                    <td><span class="quiz-type-badge quiz-type-badge--${q.quizType || 'unknown'}">${getQuizTypeLabel(q.quizType)}</span></td>
+                    <td>${q.lesson || '-'}</td>
+                    <td>${q.total}</td>
+                    <td><span class="score-badge ${q.errorRate > 50 ? 'score-badge--low' : 'score-badge--medium'}">${Math.round(q.errorRate)}%</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function loadScoresList(quizEvents) {
+            if (quizEvents.length === 0) {
+                document.getElementById('scores-list').innerHTML = '<tr><td colspan="6" class="empty-state">אין תוצאות מבחנים עדיין</td></tr>';
+                return;
+            }
+
+            document.getElementById('scores-list').innerHTML = quizEvents.map(event => {
+                const data = event.event_data || {};
+                const percentage = data.percentage || 0;
+                const userName = event.users?.display_name || event.users?.animal_name || 'לא ידוע';
+
+                return `
                     <tr>
                         <td>${formatDate(event.created_at)}</td>
-                        <td>${event.users?.animal_name || 'Unknown'}</td>
-                        <td><span class="event-type event-type--${event.event_type}">${formatEventType(event.event_type)}</span></td>
-                        <td>${formatEventData(event.event_type, event.event_data)}</td>
+                        <td><strong>${userName}</strong></td>
+                        <td><span class="quiz-type-badge quiz-type-badge--${data.quiz_type || 'unknown'}">${getQuizTypeLabel(data.quiz_type)}</span></td>
+                        <td>${data.lesson || '-'}</td>
+                        <td>${data.score || 0}/${data.total || 0}</td>
+                        <td><span class="score-badge ${getScoreBadgeClass(percentage)}">${percentage}%</span></td>
                     </tr>
-                `).join('');
-            }
+                `;
+            }).join('');
         }
 
         // Load data on page load

@@ -6,7 +6,7 @@
 const Analytics = (function() {
     // Supabase configuration
     const SUPABASE_URL = 'https://tbcgkmuucjxynibokxuo.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_5sWPOX0LvUKSCDsXjmCWBA_xzbKfFo-';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiY2drbXV1Y2p4eW5pYm9reHVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMjQxODEsImV4cCI6MjA4NTcwMDE4MX0.oGYJoFlzIaFGehfC7gf0O0VK0y2_HJjISwQXUmUEbOU';
 
     // Animal names for anonymous users
     const ADJECTIVES = [
@@ -312,6 +312,65 @@ const Analytics = (function() {
                 lesson_id: lessonId,
                 lesson_name: lessonName
             });
+        },
+
+        /**
+         * Track individual question answer for difficulty analysis
+         */
+        trackQuestionAnswer(quizType, lesson, questionIndex, questionData, selectedAnswer, isCorrect, timeMs) {
+            const questionId = `${lesson}_q${questionIndex}`;
+
+            // Track in events table
+            trackEvent('question_answer', {
+                quiz_type: quizType,
+                lesson: lesson,
+                question_id: questionId,
+                is_correct: isCorrect,
+                time_to_answer_ms: timeMs
+            });
+
+            // Also store in dedicated table for difficulty analysis
+            supabaseRequest('question_attempts', 'POST', {
+                user_id: userId,
+                question_id: questionId,
+                question_text: questionData.question ? questionData.question.substring(0, 200) : '',
+                quiz_type: quizType,
+                lesson: lesson,
+                selected_answer: selectedAnswer,
+                correct_answer: questionData.correct,
+                is_correct: isCorrect,
+                time_to_answer_ms: timeMs
+            });
+        },
+
+        /**
+         * Update user's display name (from welcome modal)
+         */
+        async updateUserName(name) {
+            if (!userId) {
+                // Try to get cached userId
+                const cached = localStorage.getItem('analytics_user');
+                if (cached) {
+                    userId = JSON.parse(cached).userId;
+                }
+            }
+
+            if (!userId) {
+                console.warn('Cannot update user name: no user ID');
+                return false;
+            }
+
+            const result = await supabaseRequest(
+                `users?id=eq.${userId}`,
+                'PATCH',
+                { display_name: name }
+            );
+
+            if (result !== null) {
+                console.log('User name updated:', name);
+                return true;
+            }
+            return false;
         }
     };
 })();

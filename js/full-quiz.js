@@ -201,6 +201,7 @@ class FullQuizApp {
     showQuestion() {
         const question = this.currentQuestions[this.currentIndex];
         this.answered = false;
+        this.questionStartTime = Date.now(); // Track time for analytics
 
         // Update progress
         const progress = ((this.currentIndex) / this.currentQuestions.length) * 100;
@@ -238,6 +239,20 @@ class FullQuizApp {
 
         const question = this.currentQuestions[this.currentIndex];
         const isCorrect = selectedIndex === question.correct;
+        const timeToAnswer = Date.now() - this.questionStartTime;
+
+        // Track this answer in analytics
+        if (window.Analytics?.trackQuestionAnswer) {
+            Analytics.trackQuestionAnswer(
+                'frontal',
+                this.currentLesson,
+                this.currentIndex,
+                question,
+                selectedIndex,
+                isCorrect,
+                timeToAnswer
+            );
+        }
 
         // Update score and track wrong answers
         if (isCorrect) {
