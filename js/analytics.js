@@ -8,15 +8,22 @@ const Analytics = (function() {
     const SUPABASE_URL = 'https://tbcgkmuucjxynibokxuo.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiY2drbXV1Y2p4eW5pYm9reHVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMjQxODEsImV4cCI6MjA4NTcwMDE4MX0.oGYJoFlzIaFGehfC7gf0O0VK0y2_HJjISwQXUmUEbOU';
 
-    // Animal names for anonymous users
+    // Animal names for anonymous users (with emojis)
     const ADJECTIVES = [
         'Happy', 'Clever', 'Swift', 'Brave', 'Gentle', 'Wise', 'Calm', 'Bright',
         'Kind', 'Bold', 'Quick', 'Warm', 'Cool', 'Sharp', 'Soft', 'Lucky'
     ];
-    const ANIMALS = [
-        'Fox', 'Owl', 'Bear', 'Wolf', 'Deer', 'Hawk', 'Lion', 'Tiger',
-        'Panda', 'Koala', 'Eagle', 'Dolphin', 'Penguin', 'Rabbit', 'Otter', 'Falcon'
-    ];
+    const ANIMALS = {
+        'Fox': '🦊', 'Owl': '🦉', 'Bear': '🐻', 'Wolf': '🐺', 'Deer': '🦌',
+        'Hawk': '🦅', 'Lion': '🦁', 'Tiger': '🐯', 'Panda': '🐼', 'Koala': '🐨',
+        'Eagle': '🦅', 'Dolphin': '🐬', 'Penguin': '🐧', 'Rabbit': '🐰', 'Otter': '🦦',
+        'Falcon': '🦅', 'Cat': '🐱', 'Dog': '🐶', 'Elephant': '🐘', 'Giraffe': '🦒',
+        'Zebra': '🦓', 'Monkey': '🐵', 'Gorilla': '🦍', 'Hippo': '🦛', 'Rhino': '🦏',
+        'Camel': '🐫', 'Kangaroo': '🦘', 'Hedgehog': '🦔', 'Squirrel': '🐿️', 'Bat': '🦇',
+        'Whale': '🐋', 'Shark': '🦈', 'Octopus': '🐙', 'Crab': '🦀', 'Turtle': '🐢',
+        'Frog': '🐸', 'Butterfly': '🦋', 'Bee': '🐝', 'Ladybug': '🐞', 'Unicorn': '🦄'
+    };
+    const ANIMAL_NAMES = Object.keys(ANIMALS);
 
     let userId = null;
     let sessionId = null;
@@ -56,12 +63,13 @@ const Analytics = (function() {
     }
 
     /**
-     * Generate a random animal name
+     * Generate a random animal name with emoji
      */
     function generateAnimalName() {
         const adj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
-        const animal = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
-        return `${adj} ${animal}`;
+        const animalName = ANIMAL_NAMES[Math.floor(Math.random() * ANIMAL_NAMES.length)];
+        const emoji = ANIMALS[animalName];
+        return `${emoji} ${adj} ${animalName}`;
     }
 
     /**
