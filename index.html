@@ -282,6 +282,85 @@
         </footer>
     </div>
 
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="welcome-modal" style="display: none;">
+        <div class="welcome-modal__backdrop"></div>
+        <div class="welcome-modal__content">
+            <h2 class="welcome-modal__title">היי, איך קוראים לך?</h2>
+            <input type="text" id="user-name-input" class="welcome-modal__input" placeholder="השם שלך..." autofocus>
+            <button id="welcome-modal-submit" class="welcome-modal__button">נקסט</button>
+        </div>
+    </div>
+
+    <style>
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .welcome-modal__backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+        }
+        .welcome-modal__content {
+            position: relative;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .welcome-modal__title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 24px;
+        }
+        .welcome-modal__input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            text-align: center;
+            font-family: inherit;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+        .welcome-modal__input:focus {
+            outline: none;
+            border-color: #2d7d46;
+        }
+        .welcome-modal__button {
+            background: linear-gradient(135deg, #2d7d46, #47c163);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .welcome-modal__button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 125, 70, 0.4);
+        }
+    </style>
+
     <script src="js/analytics.js"></script>
     <script src="js/homepage.js"></script>
 </body>

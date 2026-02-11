@@ -9,6 +9,42 @@ class Homepage {
         this.initEventListeners();
         this.loadCounts();
         this.initCountdown();
+        this.checkFirstVisit();
+    }
+
+    checkFirstVisit() {
+        const userName = localStorage.getItem('user-name');
+        if (!userName) {
+            this.showWelcomeModal();
+        }
+    }
+
+    showWelcomeModal() {
+        const modal = document.getElementById('welcome-modal');
+        const input = document.getElementById('user-name-input');
+        const submitBtn = document.getElementById('welcome-modal-submit');
+
+        if (!modal) return;
+
+        modal.style.display = 'flex';
+        setTimeout(() => input.focus(), 100);
+
+        const submitName = () => {
+            const name = input.value.trim();
+            if (name) {
+                localStorage.setItem('user-name', name);
+                modal.style.display = 'none';
+                // Update analytics with the name if available
+                if (window.Analytics && window.Analytics.updateUserName) {
+                    window.Analytics.updateUserName(name);
+                }
+            }
+        };
+
+        submitBtn.addEventListener('click', submitName);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitName();
+        });
     }
 
     initCountdown() {
