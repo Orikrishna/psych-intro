@@ -424,6 +424,59 @@
         const SUPABASE_URL = 'https://tbcgkmuucjxynibokxuo.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiY2drbXV1Y2p4eW5pYm9reHVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMjQxODEsImV4cCI6MjA4NTcwMDE4MX0.oGYJoFlzIaFGehfC7gf0O0VK0y2_HJjISwQXUmUEbOU';
 
+        // Excluded user IDs (admin/developer devices)
+        let EXCLUDED_USER_IDS = [];
+
+        // Generate fingerprint to detect current device
+        function generateFingerprint() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top';
+            ctx.font = '14px Arial';
+            ctx.fillText('fingerprint', 2, 2);
+            const canvasData = canvas.toDataURL();
+            const components = [
+                navigator.userAgent,
+                navigator.language,
+                screen.width + 'x' + screen.height,
+                screen.colorDepth,
+                new Date().getTimezoneOffset(),
+                canvasData.slice(-50)
+            ];
+            let hash = 0;
+            const str = components.join('|');
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return 'fp_' + Math.abs(hash).toString(36);
+        }
+
+        // Find and exclude current device's user ID
+        async function initExcludedUsers() {
+            const myFingerprint = generateFingerprint();
+            console.log('My fingerprint:', myFingerprint);
+
+            // Find user with this fingerprint
+            const users = await supabaseGet(`users?device_fingerprint=eq.${myFingerprint}&select=id`);
+            if (users.length > 0) {
+                EXCLUDED_USER_IDS = users.map(u => u.id);
+                console.log('Excluding user IDs:', EXCLUDED_USER_IDS);
+            }
+        }
+
+        // Filter out excluded users
+        function filterExcluded(items, userIdField = 'user_id') {
+            if (EXCLUDED_USER_IDS.length === 0) return items;
+            return items.filter(item => !EXCLUDED_USER_IDS.includes(item[userIdField]));
+        }
+
+        function filterExcludedUsers(users) {
+            if (EXCLUDED_USER_IDS.length === 0) return users;
+            return users.filter(u => !EXCLUDED_USER_IDS.includes(u.id));
+        }
+
         // Tab switching
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -480,12 +533,14 @@
         }
 
         async function loadAllData() {
-            // Load users
-            const users = await supabaseGet('users?select=*&order=created_at.desc');
+            // Load users (filtered)
+            const allUsers = await supabaseGet('users?select=*&order=created_at.desc');
+            const users = filterExcludedUsers(allUsers);
             document.getElementById('total-users').textContent = users.length;
 
-            // Load sessions
-            const sessions = await supabaseGet('sessions?select=*');
+            // Load sessions (filtered)
+            const allSessions = await supabaseGet('sessions?select=*');
+            const sessions = filterExcluded(allSessions);
             document.getElementById('total-sessions').textContent = sessions.length;
 
             // Calculate average session length
@@ -503,8 +558,9 @@
             const avgMinutes = sessionsWithDuration > 0 ? Math.round(totalDuration / sessionsWithDuration) : 0;
             document.getElementById('avg-session-length').textContent = avgMinutes;
 
-            // Load ALL events
-            const allEvents = await supabaseGet('events?select=*,users(animal_name,display_name)&order=created_at.desc');
+            // Load ALL events (filtered)
+            const rawEvents = await supabaseGet('events?select=*,users(animal_name,display_name)&order=created_at.desc');
+            const allEvents = filterExcluded(rawEvents);
 
             // Quiz events
             const quizEvents = allEvents.filter(e => e.event_type === 'quiz_complete');
@@ -631,7 +687,8 @@
         }
 
         async function loadDifficultQuestions() {
-            const attempts = await supabaseGet('question_attempts?select=*');
+            const rawAttempts = await supabaseGet('question_attempts?select=*');
+            const attempts = filterExcluded(rawAttempts);
 
             if (attempts.length === 0) {
                 document.getElementById('difficult-questions-list').innerHTML = '<tr><td colspan="5" class="empty-state">אין נתונים על שאלות עדיין</td></tr>';
@@ -701,8 +758,11 @@
             }).join('');
         }
 
-        // Load data on page load
-        loadAllData();
+        // Load data on page load - first detect admin device, then load data
+        (async function() {
+            await initExcludedUsers();
+            loadAllData();
+        })();
 
         // Auto-refresh every 30 seconds
         setInterval(loadAllData, 30000);
