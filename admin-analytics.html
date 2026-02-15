@@ -129,7 +129,7 @@
         }
 
         /* ApexCharts Container */
-        #hourly-chart {
+        #daily-users-chart {
             width: 100%;
             height: 300px;
             direction: ltr;
@@ -317,15 +317,15 @@
 
             <!-- Activity Over Time Graph -->
             <section class="analytics-section">
-                <h2>פעילות ב-36 שעות אחרונות</h2>
-                <div id="hourly-chart">
+                <h2>משתמשים מ-1 בפברואר</h2>
+                <div id="daily-users-chart">
                     <div class="loading">טוען...</div>
                 </div>
             </section>
 
             <!-- Top Tools -->
             <section class="analytics-section">
-                <h2>כלים פופולריים</h2>
+                <h2>5 כלים הכי פופולריים</h2>
                 <div id="tools-ranking">
                     <div class="loading">טוען...</div>
                 </div>
@@ -343,12 +343,16 @@
                             <th>מכשיר</th>
                             <th>תאריך הצטרפות</th>
                             <th>פעילות אחרונה</th>
+                            <th>סשנים</th>
+                            <th>זמן לימוד</th>
+                            <th>ממוצע סשן</th>
+                            <th>כלי אהוב</th>
                             <th>מבחנים</th>
                             <th>ציון ממוצע</th>
                         </tr>
                     </thead>
                     <tbody id="users-names-list">
-                        <tr><td colspan="6" class="loading">טוען...</td></tr>
+                        <tr><td colspan="10" class="loading">טוען...</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -357,8 +361,8 @@
         <!-- Tab 3: Questions (Difficult Questions) -->
         <div class="tab-content" id="questions-tab">
             <section class="analytics-section">
-                <h2>שאלות קשות</h2>
-                <p style="color: var(--color-text-secondary); margin-bottom: 16px;">שאלות עם אחוז השגיאה הגבוה ביותר (מינימום 3 ניסיונות)</p>
+                <h2>10 שאלות במבחן לדוגמא שהכי הרבה תלמידים טועים בהן</h2>
+                <p style="color: var(--color-text-secondary); margin-bottom: 16px;">מינימום 3 ניסיונות לכל שאלה</p>
                 <table class="events-table">
                     <thead>
                         <tr>
@@ -553,49 +557,50 @@
                 document.getElementById('avg-score').textContent = '-';
             }
 
-            // Hourly chart
-            loadHourlyChart(allEvents);
+            // Daily users chart (since Feb 1)
+            loadDailyUsersChart(users);
 
-            // Tools ranking
+            // Tools ranking (top 5)
             loadToolsRanking(allEvents);
 
             // Users list
-            loadUsersNamesList(users, allEvents);
+            loadUsersNamesList(users, sessions, allEvents);
 
-            // Difficult questions
+            // Difficult questions (sample test only, top 10)
             loadDifficultQuestions();
 
             // Scores list
             loadScoresList(quizEvents);
         }
 
-        let hourlyChart = null;
+        let dailyUsersChart = null;
 
-        function loadHourlyChart(events) {
-            // Calculate 36 hours ago
+        function loadDailyUsersChart(users) {
+            // Feb 1, 2026
+            const startDate = new Date('2026-02-01T00:00:00');
             const now = new Date();
-            const thirtySevenHoursAgo = new Date(now.getTime() - 37 * 60 * 60 * 1000);
 
-            // Create hourly buckets for past 36 hours
-            const hourlyData = [];
-            for (let i = 36; i >= 0; i--) {
-                const hourStart = new Date(now.getTime() - i * 60 * 60 * 1000);
-                hourStart.setMinutes(0, 0, 0);
-                hourlyData.push({
-                    x: hourStart.getTime(),
+            // Create daily buckets from Feb 1 to today
+            const dailyData = [];
+            const currentDate = new Date(startDate);
+
+            while (currentDate <= now) {
+                dailyData.push({
+                    x: currentDate.getTime(),
                     y: 0
                 });
+                currentDate.setDate(currentDate.getDate() + 1);
             }
 
-            // Count events per hour
-            events.forEach(e => {
-                const eventTime = new Date(e.created_at);
-                if (eventTime >= thirtySevenHoursAgo) {
-                    const eventHour = new Date(eventTime);
-                    eventHour.setMinutes(0, 0, 0);
-                    const hourTs = eventHour.getTime();
+            // Count new users per day
+            users.forEach(u => {
+                const userDate = new Date(u.created_at);
+                if (userDate >= startDate) {
+                    const dayStart = new Date(userDate);
+                    dayStart.setHours(0, 0, 0, 0);
+                    const dayTs = dayStart.getTime();
 
-                    const bucket = hourlyData.find(d => d.x === hourTs);
+                    const bucket = dailyData.find(d => d.x === dayTs);
                     if (bucket) {
                         bucket.y++;
                     }
@@ -603,22 +608,22 @@
             });
 
             // Clear container
-            const container = document.getElementById('hourly-chart');
+            const container = document.getElementById('daily-users-chart');
             container.innerHTML = '';
 
             // Destroy existing chart if any
-            if (hourlyChart) {
-                hourlyChart.destroy();
+            if (dailyUsersChart) {
+                dailyUsersChart.destroy();
             }
 
             // ApexCharts configuration
             const options = {
                 series: [{
-                    name: 'פעילות',
-                    data: hourlyData
+                    name: 'משתמשים חדשים',
+                    data: dailyData
                 }],
                 chart: {
-                    type: 'bar',
+                    type: 'area',
                     height: 280,
                     fontFamily: 'Heebo, sans-serif',
                     toolbar: {
@@ -630,12 +635,10 @@
                         speed: 800
                     }
                 },
-                colors: ['#4a9c6d'],
-                plotOptions: {
-                    bar: {
-                        borderRadius: 4,
-                        columnWidth: '70%'
-                    }
+                colors: ['#2d7d46'],
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
                 },
                 dataLabels: {
                     enabled: false
@@ -644,7 +647,7 @@
                     type: 'datetime',
                     labels: {
                         datetimeUTC: false,
-                        format: 'HH:mm',
+                        format: 'dd/MM',
                         style: {
                             fontSize: '11px',
                             fontFamily: 'Heebo, sans-serif'
@@ -674,11 +677,11 @@
                 },
                 tooltip: {
                     x: {
-                        format: 'dd/MM HH:mm'
+                        format: 'dd/MM/yyyy'
                     },
                     y: {
                         formatter: function(val) {
-                            return val + ' אירועים';
+                            return val + ' משתמשים';
                         }
                     }
                 },
@@ -687,16 +690,16 @@
                     gradient: {
                         shade: 'light',
                         type: 'vertical',
-                        shadeIntensity: 0.5,
-                        gradientToColors: ['#7bc89c'],
-                        opacityFrom: 1,
-                        opacityTo: 0.8
+                        shadeIntensity: 0.3,
+                        gradientToColors: ['#47c163'],
+                        opacityFrom: 0.7,
+                        opacityTo: 0.2
                     }
                 }
             };
 
-            hourlyChart = new ApexCharts(container, options);
-            hourlyChart.render();
+            dailyUsersChart = new ApexCharts(container, options);
+            dailyUsersChart.render();
         }
 
         function loadToolsRanking(events) {
@@ -719,7 +722,8 @@
 
             const sorted = Object.entries(tools)
                 .sort((a, b) => b[1].clicks - a[1].clicks)
-                .filter(([_, data]) => data.clicks > 0);
+                .filter(([_, data]) => data.clicks > 0)
+                .slice(0, 5); // Top 5
 
             if (sorted.length === 0) {
                 document.getElementById('tools-ranking').innerHTML = '<div class="empty-state">אין נתונים עדיין</div>';
@@ -735,11 +739,28 @@
             `).join('');
         }
 
-        function loadUsersNamesList(users, allEvents) {
+        function loadUsersNamesList(users, sessions, allEvents) {
             if (users.length === 0) {
-                document.getElementById('users-names-list').innerHTML = '<tr><td colspan="5" class="empty-state">אין משתמשים עדיין</td></tr>';
+                document.getElementById('users-names-list').innerHTML = '<tr><td colspan="10" class="empty-state">אין משתמשים עדיין</td></tr>';
                 return;
             }
+
+            // Calculate session stats per user
+            const sessionStats = {};
+            sessions.forEach(s => {
+                if (!sessionStats[s.user_id]) {
+                    sessionStats[s.user_id] = { count: 0, totalDuration: 0 };
+                }
+                sessionStats[s.user_id].count++;
+
+                // Calculate duration if session has start and end
+                if (s.started_at && s.ended_at) {
+                    const duration = (new Date(s.ended_at) - new Date(s.started_at)) / 1000 / 60; // minutes
+                    if (duration > 0 && duration < 180) { // Ignore sessions > 3 hours
+                        sessionStats[s.user_id].totalDuration += duration;
+                    }
+                }
+            });
 
             // Get quiz counts and scores per user
             const userStats = {};
@@ -749,6 +770,25 @@
                 }
                 userStats[e.user_id].quizCount++;
                 userStats[e.user_id].totalScore += e.event_data?.percentage || 0;
+            });
+
+            // Get most used tool per user
+            const toolUsage = {};
+            const toolMap = {
+                'quiz.html': 'מבחנים מקוונים',
+                'full-quiz.html': 'מבחנים פרונטליים',
+                'sample-test.html': 'מבחן לדוגמא',
+                'flashcards.html': 'כרטיסיות',
+                'summaries.html': 'סיכומים'
+            };
+            allEvents.filter(e => e.event_type === 'page_view').forEach(e => {
+                const page = e.event_data?.page;
+                if (toolMap[page]) {
+                    if (!toolUsage[e.user_id]) {
+                        toolUsage[e.user_id] = {};
+                    }
+                    toolUsage[e.user_id][page] = (toolUsage[e.user_id][page] || 0) + 1;
+                }
             });
 
             // Get last activity per user
@@ -766,12 +806,32 @@
                 const subtitle = u.display_name ? `(${u.animal_name})` : '';
                 const deviceIcon = getDeviceIcon(u.device_type);
 
+                const sesStats = sessionStats[u.id] || { count: 0, totalDuration: 0 };
+                const sessionCount = sesStats.count;
+                const totalStudyTime = sesStats.totalDuration > 0 ? Math.round(sesStats.totalDuration) : 0;
+                const avgSessionLength = sesStats.count > 0 && sesStats.totalDuration > 0
+                    ? Math.round(sesStats.totalDuration / sesStats.count)
+                    : 0;
+
+                // Find most used tool
+                let favTool = '-';
+                if (toolUsage[u.id]) {
+                    const sorted = Object.entries(toolUsage[u.id]).sort((a, b) => b[1] - a[1]);
+                    if (sorted.length > 0) {
+                        favTool = toolMap[sorted[0][0]];
+                    }
+                }
+
                 return `
                     <tr>
                         <td><span class="user-name">${displayName}</span> <span class="user-name-subtitle">${subtitle}</span></td>
                         <td>${deviceIcon}</td>
                         <td>${formatDate(u.created_at)}</td>
                         <td>${lastActivity[u.id] ? formatDate(lastActivity[u.id]) : '-'}</td>
+                        <td>${sessionCount}</td>
+                        <td>${totalStudyTime > 0 ? totalStudyTime + ' דק׳' : '-'}</td>
+                        <td>${avgSessionLength > 0 ? avgSessionLength + ' דק׳' : '-'}</td>
+                        <td>${favTool}</td>
                         <td>${stats.quizCount}</td>
                         <td>${avgScore !== '-' ? `<span class="score-badge ${getScoreBadgeClass(avgScore)}">${avgScore}%</span>` : '-'}</td>
                     </tr>
@@ -797,9 +857,9 @@
                 return;
             }
 
-            // Group by question_id
+            // Group by question_id - filter only sample test questions
             const stats = {};
-            attempts.forEach(a => {
+            attempts.filter(a => a.quiz_type === 'sample').forEach(a => {
                 if (!stats[a.question_id]) {
                     stats[a.question_id] = {
                         text: a.question_text,
@@ -813,12 +873,12 @@
                 if (!a.is_correct) stats[a.question_id].wrong++;
             });
 
-            // Sort by error rate, filter minimum attempts
+            // Sort by error rate, filter minimum attempts, top 10
             const hardest = Object.entries(stats)
                 .map(([id, d]) => ({ id, ...d, errorRate: (d.wrong / d.total) * 100 }))
                 .filter(q => q.total >= 3)
                 .sort((a, b) => b.errorRate - a.errorRate)
-                .slice(0, 20);
+                .slice(0, 10);
 
             if (hardest.length === 0) {
                 document.getElementById('difficult-questions-list').innerHTML = '<tr><td colspan="5" class="empty-state">צריך יותר נתונים (מינימום 3 ניסיונות לשאלה)</td></tr>';
