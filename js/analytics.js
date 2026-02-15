@@ -166,6 +166,20 @@ const Analytics = (function() {
     }
 
     /**
+     * Sync localStorage name to database (for returning users)
+     */
+    async function syncLocalNameToDatabase(name) {
+        if (!userId || !name) return;
+
+        // Always update - this ensures returning users get their localStorage name synced
+        await supabaseRequest(
+            `users?id=eq.${userId}`,
+            'PATCH',
+            { display_name: name }
+        );
+    }
+
+    /**
      * Start a new session
      */
     async function startSession() {
@@ -272,6 +286,13 @@ const Analytics = (function() {
         }
 
         await getOrCreateUser();
+
+        // Sync localStorage name to database if exists but not in DB
+        const localName = localStorage.getItem('user-name');
+        if (localName && userId) {
+            // Check if we need to sync (could be returning user)
+            syncLocalNameToDatabase(localName);
+        }
 
         // Check for existing session
         const existingSession = sessionStorage.getItem('analytics_session');
